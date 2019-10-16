@@ -3,7 +3,8 @@
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "../../../../fcbh-infrastructure-modules//organization"
+  #source = "../../../../fcbh-infrastructure-modules//organization"
+  source = "git::https://github.com/bradflood/fcbh-infrastructure-modules.git?ref=master"
 }
 
 # Include all settings from the root terragrunt.hcl file
@@ -13,7 +14,7 @@ include {
 
 inputs = {
   aws_region                        = "us-east-2"
-  aws_profile                       = "bibleis-admin"
+  aws_profile                       = "fcbh-admin"
   # tfstate_global_bucket             = "terragrunt-example-terraform-state-prod"
   # tfstate_global_bucket_region      = "us-east-1"
   namespace                         = "test-NAMESPACE"
