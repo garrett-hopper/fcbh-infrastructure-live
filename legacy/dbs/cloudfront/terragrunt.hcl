@@ -3,7 +3,7 @@
 remote_state {
   backend = "s3"
   config = {
-    bucket = "fcbh-terraform-state"
+    bucket = "fcbh-terraform-state-legacy"
 
     key            = "${path_relative_to_include()}/terraform.tfstate"
     region         = "us-west-2"
@@ -19,7 +19,7 @@ remote_state {
 # with sufficient permissions to create resources in the master account. 
 #
 inputs = {
-  aws_region                        = "us-west-2"
+
 }
 
 

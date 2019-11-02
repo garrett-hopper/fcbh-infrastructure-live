@@ -19,7 +19,7 @@ remote_state {
 # with sufficient permissions to create resources in the master account. 
 #
 inputs = {
-  aws_region                        = "us-west-2"
+  aws_profile                       = "dbp-admin"
 }
 
 

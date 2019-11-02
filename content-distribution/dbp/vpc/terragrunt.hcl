@@ -19,6 +19,5 @@ include {
 # with sufficient permissions to create resources in the master account. 
 #
 inputs = {
-  aws_region                        = "us-west-2"
-  aws_profile                       = "fcbh-admin"
+
 }
