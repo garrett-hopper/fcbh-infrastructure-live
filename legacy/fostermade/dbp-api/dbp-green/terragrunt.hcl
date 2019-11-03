@@ -3,7 +3,7 @@
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "../../../../../fcbh-infrastructure-modules//dbp/elastic-beanstalk"
+  source = "../../../../../fcbh-infrastructure-modules//elastic-beanstalk"
   #source = "git::https://github.com/bradflood/fcbh-infrastructure-modules.git?ref=master"
 }
 
@@ -58,7 +58,7 @@ inputs = {
 
   solution_stack_name = "64bit Amazon Linux 2018.03 v2.9.0 running PHP 7.3"
 
-  vpc_id = vpc-0ec0445c25bbc16d3
+  #vpc_id = vpc-0ec0445c25bbc16d3
 
   // https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
   additional_settings = [
