@@ -1,16 +1,16 @@
 # root of global
 
-remote_state {
-  backend = "s3"
-  config = {
-    bucket = "fcbh-terraform-state-legacy"
+# remote_state {
+#   backend = "s3"
+#   config = {
+#     bucket = "fcbh-terraform-state-legacy"
 
-    key            = "${path_relative_to_include()}/terraform.tfstate"
-    region         = "us-west-2"
-    encrypt        = true
-    dynamodb_table = "my-lock-table"
-  }
-}
+#     key            = "${path_relative_to_include()}/terraform.tfstate"
+#     region         = "us-west-2"
+#     encrypt        = true
+#     dynamodb_table = "my-lock-table"
+#   }
+# }
 
 #
 # aws_region: region in which organization resources will be created

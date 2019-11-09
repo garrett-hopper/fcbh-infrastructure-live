@@ -1,9 +1,9 @@
-# root of global
+# legacy / DBS
 
 remote_state {
   backend = "s3"
   config = {
-    bucket = "fcbh-terraform-state-legacy"
+    bucket = "DBS-terraform-state"
 
     key            = "${path_relative_to_include()}/terraform.tfstate"
     region         = "us-west-2"

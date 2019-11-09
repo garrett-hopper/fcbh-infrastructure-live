@@ -1,9 +1,9 @@
-# root of global
+# Legacy / Fostermade 
 
 remote_state {
   backend = "s3"
   config = {
-    bucket = "bwf-fcbh-terraform-state-legacy"
+    bucket = "fostermade-terraform-state"
 
     key            = "${path_relative_to_include()}/terraform.tfstate"
     region         = "us-west-2"
