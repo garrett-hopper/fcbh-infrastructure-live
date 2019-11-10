@@ -1,9 +1,9 @@
-# Legacy dbp-web from Fostermade account
+# bibleis dbp-web
 
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "../../../../../fcbh-infrastructure-modules//elastic-beanstalk"
+  source = "../../../../fcbh-infrastructure-modules//elastic-beanstalk"
   #source = "git::https://github.com/bradflood/fcbh-infrastructure-modules.git?ref=master"
 }
 
@@ -14,16 +14,16 @@ include {
 
 inputs = {
 
-  namespace               = "dbp"
-  stage                   = ""
+  namespace               = "bibleis"
+  stage                   = "prod"
   name                    = "web"
-  # environment            = "web-blue"
-  # application_name        = "web"
+  # environment             = "blue"  
+  # application_name        = "appname"
   application_description = "DBP Elastic Beanstalk Application"
 
-  environment_description = "DBP Web "
+  environment_description = "DBP Web Blue"
 
-  availability_zones         = ["us-west-2a", "us-west-2b"] # needed?
+  availability_zones         = ["us-west-2a", "us-west-2b"] 
   availability_zone_selector = "Any 2"
   dns_zone_id                = "" # "Z2ROOWAVSOOVLL"
   instance_type              = "t3.small"
@@ -57,7 +57,7 @@ inputs = {
   healthcheck_url  = "/"
   application_port = 80
 
-  solution_stack_name = "64bit Amazon Linux 2018.03 v4.8.1 running Node.js"
+  solution_stack_name = "64bit Amazon Linux 2018.03 v4.11.0 running Node.js"
 
   // https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
   additional_settings = [
@@ -110,6 +110,11 @@ inputs = {
       name      = "Automatically Terminate Unhealthy Instances"
       namespace = "aws:elasticbeanstalk:monitoring"
       value     = "true"
+    },
+    {
+      name      = "XRayEnabled"
+      namespace = "aws:elasticbeanstalk:xray"
+      value     = "true"
     }
 
   ]
@@ -118,21 +123,11 @@ inputs = {
     "BASE_API_ROUTE"  = "https://api.v4.dbt.io"
     "NODE_ENV"        = "production"
 
-    "API_URL"         = "https://api.v4.dbt.io"
-    "APP_DEBUG"       = "0"
-    "APP_ENV"         = "production"
-    "APP_URL"         = "https://v4.dbt.io"
-    "APP_URL_PODCAST" = "https://v4.dbt.io"
+    # "API_URL"         = "https://api.v4.dbt.io"
+    # "APP_DEBUG"       = "0"
+    # "APP_ENV"         = "production"
+    # "APP_URL"         = "https://v4.dbt.io"
+    # "APP_URL_PODCAST" = "https://v4.dbt.io"
   }
 }
-
-
-# Fostermade
-#dbp-web-blue
-#terragrunt import module.elastic_beanstalk_application.aws_elastic_beanstalk_application.default dbp-web
-#terragrunt import module.elastic_beanstalk_environment.aws_elastic_beanstalk_environment.default e-zyhzm8udv9
-
-
-
-#module.elastic_beanstalk_environment.aws_security_group.default  sg-00ffe041d860136c9
 

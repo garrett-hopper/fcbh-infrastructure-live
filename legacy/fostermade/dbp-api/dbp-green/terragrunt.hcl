@@ -14,12 +14,13 @@ include {
 
 inputs = {
 
-  namespace               = "dbp"
-  stage                   = ""
-  name                    = "api"
-  application_name        = "api"
+  namespace   = "dbp"
+  stage       = ""
+  name        = "api"
+  # environment = "green"
+  # application_name        = "api"
   application_description = "DBP Elastic Beanstalk Application"
-  environment_name        = "green"
+
   environment_description = "DBP API (Green, prod I think)"
 
   availability_zones         = ["us-west-2a", "us-west-2b"]
