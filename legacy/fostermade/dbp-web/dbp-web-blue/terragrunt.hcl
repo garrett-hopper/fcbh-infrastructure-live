@@ -1,5 +1,7 @@
 # Legacy dbp-web from Fostermade account
 
+# The intent of this configuration is to document the legacy configuration, for reference
+
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
