@@ -79,7 +79,7 @@ inputs = {
   ]
 
   application_description = "bibleis Web Elastic Beanstalk Application"
-  availability_zones      = ["us-east-2a", "us-east-2b"]
+  availability_zones      = ["us-west-2a", "us-west-2b"]
   dns_zone_id             = "" # "Z2ROOWAVSOOVLL"
   enable_stream_logs      = true
   env_vars = {
