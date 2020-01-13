@@ -18,8 +18,9 @@ inputs = {
   stage     = ""
   name      = "api"
 
-  cidr_block = "172.20.0.0/16" # I think this is no longer referenced
-  vpc_cidr_block = "172.20.0.0/16"
+  #availability_zone = "us-west-2a". needed for named
+  #cidr_block     = "172.20.0.0/16" # I think this is no longer referenced
+  cidr_block = "172.20.0.0/16"
 
 }
 
@@ -39,4 +40,12 @@ inputs = {
 # terragrunt import module.private_subnets.aws_subnet.private[0] subnet-0a5fb79ce31dce45e
 # terragrunt import module.private_subnets.aws_subnet.private[1] subnet-04fc74bfdfb95a21a
 
-
+# take terraform defaults
+# module.private_subnets.aws_network_acl.private[0]
+# module.private_subnets.aws_route.private[0]
+# module.private_subnets.aws_route.private[1]
+# module.private_subnets.aws_route_table.private[0]
+# module.private_subnets.aws_route_table.private[1]
+# module.private_subnets.aws_route_table_association.private[0]
+# module.private_subnets.aws_route_table_association.private[1]
+# module.public_subnets.aws_route.public[0]
