@@ -15,6 +15,9 @@ include {
 dependency "vpc" {
   config_path = "../vpc"
 }
+dependency "bastion" {
+  config_path = "../bastion"
+}
 #
 # aws_region: region in which organization resources will be created
 # 
@@ -30,7 +33,7 @@ inputs = {
   name      = "api"
   vpc_id    = dependency.vpc.outputs.vpc_id
   subnets   = dependency.vpc.outputs.private_subnet_ids
-  security_groups = [dependency.vpc.outputs.vpc_default_security_group_id]
+  security_groups = [dependency.vpc.outputs.vpc_default_security_group_id, dependency.bastion.outputs.security_group_id]
   db_name = "dbp"
   snapshot_identifier = "pre-terraform-snapshot"
 }
