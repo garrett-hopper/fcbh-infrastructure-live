@@ -23,7 +23,7 @@ inputs = {
 
   vpc_id    = dependency.vpc.outputs.vpc_id
   control_cidr = ["140.82.163.2/32", "73.26.9.216/32", "45.58.38.254/32", "136.37.119.153/32"]
-  key_name = "fcbh-eb"
+  key_name = "dbp-eb"
   subnet_id   = dependency.vpc.outputs.bastion_subnet_id
 }
 
