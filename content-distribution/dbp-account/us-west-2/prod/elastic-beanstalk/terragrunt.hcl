@@ -30,7 +30,7 @@ inputs = {
   subject_alternative_names     = ["beanstalk-dev.bwfloodlearnaws.com"]
   vpc_id                        = dependency.vpc.outputs.vpc_id
   elasticache_subnet_group_name = "elasticache-subnet-group"
-  subnets                       = dependency.vpc.outputs.private_subnet_ids
+  private_subnets               = dependency.vpc.outputs.private_subnet_ids
   availability_zones            = dependency.vpc.outputs.availability_zones
   allowed_security_groups       = [dependency.vpc.outputs.vpc_default_security_group_id]
 }
