@@ -35,6 +35,6 @@ inputs = {
   subnets             = dependency.vpc.outputs.private_subnet_ids
   security_groups     = [dependency.vpc.outputs.vpc_default_security_group_id, dependency.bastion.outputs.security_group_id]
   instance_type       = "db.t3.small"
-  db_name             = "dbp"
+  db_name             = "dbp_dev"
   snapshot_identifier = "pre-terraform-snapshot"
 }
