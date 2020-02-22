@@ -21,33 +21,28 @@ dependency "bastion" {
 dependency "rds" {
   config_path = "../rds"
 }
-#
-# aws_region: region in which organization resources will be created
-# 
-# aws_profile: refers to a named profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) 
-# with sufficient permissions to create resources in the master account. 
-#
+
 # to copy an RDS snapshot between accounts: https://aws.amazon.com/premiumsupport/knowledge-center/rds-snapshots-share-account/
 inputs = {
   namespace                     = "dbp"
   stage                         = ""
-  name                       = "beanstalk"
-  application_description    = "dbp"
-  vpc_id                     = dependency.vpc.outputs.vpc_id
-  public_subnets             = dependency.vpc.outputs.public_subnet_ids
-  private_subnets            = dependency.vpc.outputs.private_subnet_ids
-  allowed_security_groups    = [dependency.vpc.outputs.vpc_default_security_group_id]
-  additional_security_groups = [dependency.bastion.outputs.security_group_id]
-  elasticache_subnet_group_name = "elasticache-subnet-group"
+  name                          = "beanstalk"
+  application_description       = "dbp"
+  vpc_id                        = dependency.vpc.outputs.vpc_id
+  public_subnets                = dependency.vpc.outputs.public_subnet_ids
+  private_subnets               = dependency.vpc.outputs.private_subnet_ids
+  allowed_security_groups       = [dependency.bastion.outputs.security_group_id,dependency.vpc.outputs.vpc_default_security_group_id]
+  additional_security_groups    = [dependency.bastion.outputs.security_group_id]
+  keypair                       = "dbp"
   availability_zones            = dependency.vpc.outputs.availability_zones
 
-description                = "DBP Elastic Beanstalk (Non Prod - Single instance)"
+  description                = "DBP Elastic Beanstalk "
   availability_zone_selector = "Any 2"
   dns_zone_id                = "" # "Z2ROOWAVSOOVLL"
   instance_type              = "t3.small"
   #wait_for_ready_timeout     = "20m"
 
-  environment_description = "my test environment for dbp - created by terraform"
+  environment_description = "DBP Production environment"
   version_label           = ""
   force_destroy           = true
   root_volume_size        = 8
@@ -71,7 +66,7 @@ description                = "DBP Elastic Beanstalk (Non Prod - Single instance)
   healthcheck_url  = "/"
   application_port = 80
 
-  solution_stack_name = "64bit Amazon Linux 2018.03 v2.9.2 running PHP 7.2 "
+  solution_stack_name = "64bit Amazon Linux 2018.03 v2.9.2 running PHP 7.2"
 
   // https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
   additional_settings = [
@@ -90,6 +85,4 @@ description                = "DBP Elastic Beanstalk (Non Prod - Single instance)
     "DBP_USERS_DATABASE" = "dbp_users"
     "DBP_USERS_USERNAME" = "api_node_dbp"
   }
-}
-
 }
