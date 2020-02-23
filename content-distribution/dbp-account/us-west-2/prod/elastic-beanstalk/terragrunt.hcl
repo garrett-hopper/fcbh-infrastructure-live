@@ -40,7 +40,6 @@ inputs = {
   availability_zone_selector = "Any 2"
   dns_zone_id                = "" # "Z2ROOWAVSOOVLL"
   instance_type              = "t3.small"
-  #wait_for_ready_timeout     = "20m"
 
   environment_description = "DBP Production environment"
   version_label           = ""
