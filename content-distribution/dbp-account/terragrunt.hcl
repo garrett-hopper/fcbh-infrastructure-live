@@ -1,5 +1,4 @@
 # root of DBP
-#bucket         = "fcbh-terraform-state-dbp-${get_aws_account_id()}"
 remote_state {
   backend = "s3"
   config = {
