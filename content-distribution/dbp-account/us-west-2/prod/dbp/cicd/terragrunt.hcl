@@ -3,7 +3,7 @@
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "../../../../../../fcbh-infrastructure-modules//cicd"
+  source = "../../../../../../../fcbh-infrastructure-modules//cicd"
   # source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git?ref=master"
 }
 
@@ -13,7 +13,7 @@ include {
 }
 
 dependency "dbp-beanstalk" {
-  config_path = "../dbp-beanstalk"
+  config_path = "../beanstalk"
 }
 
 # to copy an RDS snapshot between accounts: https://aws.amazon.com/premiumsupport/knowledge-center/rds-snapshots-share-account/

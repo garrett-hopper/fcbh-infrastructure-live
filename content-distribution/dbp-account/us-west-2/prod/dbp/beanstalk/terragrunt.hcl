@@ -3,7 +3,7 @@
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "../../../../../../fcbh-infrastructure-modules//elastic-beanstalk"
+  source = "../../../../../../../fcbh-infrastructure-modules//elastic-beanstalk"
   # source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git?ref=master"
 }
 
@@ -13,16 +13,16 @@ include {
 }
 
 dependency "vpc" {
-  config_path = "../vpc"
+  config_path = "../../vpc"
 }
 dependency "bastion" {
-  config_path = "../bastion"
+  config_path = "../../bastion"
 }
 dependency "rds" {
-  config_path = "../rds"
+  config_path = "../../rds"
 }
 dependency "elasticache" {
-  config_path = "../elasticache"
+  config_path = "../../elasticache"
 }
 
 # to copy an RDS snapshot between accounts: https://aws.amazon.com/premiumsupport/knowledge-center/rds-snapshots-share-account/
