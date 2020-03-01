@@ -3,7 +3,7 @@
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "../../../../fcbh-infrastructure-modules//elastic-beanstalk"
+  source = "../../../../../../fcbh-infrastructure-modules//elastic-beanstalk"
   #source = "git::https://github.com/bradflood/fcbh-infrastructure-modules.git?ref=master"
 }
 
@@ -19,7 +19,7 @@ inputs = {
   name      = "web"
   stage     = "prod"
   
-    # module-specific, sorted alphabetically
+   ###### put as much of this as possible in .ebextensions, it's related to eb environment, not the durable configuration
 
   // https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
   additional_settings = [
@@ -99,5 +99,3 @@ inputs = {
 
 }
 
-# need to add
-# add EC2 Termination Protection (probably in additionalSettings, namespace for launch configuration)
