@@ -21,6 +21,9 @@ dependency "bastion" {
 dependency "rds" {
   config_path = "../rds"
 }
+dependency "elasticache" {
+  config_path = "../elasticache"
+}
 
 # to copy an RDS snapshot between accounts: https://aws.amazon.com/premiumsupport/knowledge-center/rds-snapshots-share-account/
 inputs = {
@@ -41,7 +44,7 @@ inputs = {
   dns_zone_id                = "" # "Z2ROOWAVSOOVLL"
   instance_type              = "t3.small"
 
-  environment_description = "DBP Production environment"
+  environment_description = "DBP Staging environment"
   version_label           = ""
   force_destroy           = true
   root_volume_size        = 8
@@ -83,5 +86,6 @@ inputs = {
     "DBP_USERS_HOST"     = dependency.rds.outputs.endpoint
     "DBP_USERS_DATABASE" = "dbp_users"
     "DBP_USERS_USERNAME" = "api_node_dbp"
-  }
+     "MEMCACHE_HOST"      = dependency.elasticache.outputs.cluster_configuration_endpoint
+ }
 }

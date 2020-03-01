@@ -21,23 +21,26 @@ dependency "bastion" {
 dependency "rds" {
   config_path = "../rds"
 }
+dependency "elasticache" {
+  config_path = "../elasticache"
+}
 
 # to copy an RDS snapshot between accounts: https://aws.amazon.com/premiumsupport/knowledge-center/rds-snapshots-share-account/
 inputs = {
-  namespace                     = "dbp"
-  stage                         = ""
-  name                          = "beanstalk"
-  application_description       = "dbp"
-  vpc_id                        = dependency.vpc.outputs.vpc_id
-  public_subnets                = dependency.vpc.outputs.public_subnet_ids
-  private_subnets               = dependency.vpc.outputs.private_subnet_ids
-  allowed_security_groups       = [dependency.bastion.outputs.security_group_id,dependency.vpc.outputs.vpc_default_security_group_id]
-  additional_security_groups    = [dependency.bastion.outputs.security_group_id]
-  keypair                       = "dbp"
-  availability_zones            = dependency.vpc.outputs.availability_zones
+  namespace                  = "dbp"
+  stage                      = ""
+  name                       = "beanstalk"
+  application_description    = "dbp"
+  vpc_id                     = dependency.vpc.outputs.vpc_id
+  public_subnets             = dependency.vpc.outputs.public_subnet_ids
+  private_subnets            = dependency.vpc.outputs.private_subnet_ids
+  allowed_security_groups    = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
+  additional_security_groups = [dependency.bastion.outputs.security_group_id]
+  keypair                    = "dbp"
+  # availability_zones         = dependency.vpc.outputs.availability_zones # used?
 
   description                = "DBP Elastic Beanstalk "
-  availability_zone_selector = "Any 2"
+  # availability_zone_selector = "Any 2" # used?
   dns_zone_id                = "" # "Z2ROOWAVSOOVLL"
   instance_type              = "t3.small"
 
@@ -83,5 +86,6 @@ inputs = {
     "DBP_USERS_HOST"     = dependency.rds.outputs.endpoint
     "DBP_USERS_DATABASE" = "dbp_users"
     "DBP_USERS_USERNAME" = "api_node_dbp"
+    "MEMCACHE_HOST"      = dependency.elasticache.outputs.cluster_configuration_endpoint
   }
 }
