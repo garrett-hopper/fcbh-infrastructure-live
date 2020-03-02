@@ -19,13 +19,13 @@ dependency "dbp-beanstalk" {
 # to copy an RDS snapshot between accounts: https://aws.amazon.com/premiumsupport/knowledge-center/rds-snapshots-share-account/
 inputs = {
   namespace                          = "dbp"
-  stage                              = ""
+  stage                              = "prod"
   name                               = "cicd"
   application_description            = "CICD resources for DBP Beanstalk"
+  repo_owner                         = "bradflood"
+  repo_name                          = "dbp-phoenix"
+  branch                             = "master"
+  github_oauth_token                 = "c2e12dbcfdda1931329b537a8557bc874a13e024"
   elastic_beanstalk_application_name = dependency.dbp-beanstalk.outputs.elastic_beanstalk_application_name
   elastic_beanstalk_environment_name = dependency.dbp-beanstalk.outputs.elastic_beanstalk_environment_name
-  repo_owner                         = "faithcomesbyhearing"
-  repo_name                          = "dbp"
-  branch                             = "master"
-  # buildspec = 
 }

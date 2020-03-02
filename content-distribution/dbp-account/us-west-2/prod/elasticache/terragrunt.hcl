@@ -15,14 +15,12 @@ include {
 dependency "vpc" {
   config_path = "../vpc"
 }
-dependency "beanstalk" {
-  config_path = "../dbp-beanstalk"
-}
+
 inputs = {
   namespace       = "dbp"
   stage           = ""
   name            = "api"
   vpc_id          = dependency.vpc.outputs.vpc_id
   private_subnets = dependency.vpc.outputs.private_subnet_ids
-  allowed_security_groups = [dependency.beanstalk.security_group_id]  
+  allowed_security_groups = [dependency.vpc.outputs.vpc_default_security_group_id]  
 }
