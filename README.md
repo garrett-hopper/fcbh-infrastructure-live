@@ -9,16 +9,18 @@
 - configure AWS profiles as needed https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html
   - dbp-admin
   - bibleis-admin
-- generate a GitHub personal access token (if needed) https://docs.aws.amazon.com/codepipeline/latest/userguide/GitHub-create-personal-token-CLI.html
+
 
 ## Introduction
 While we use terraform for the resource creation, all terraform commands will be executed using the terragrunt wrapper.  This wrapper enables creation of AWS resources in multiple modules, with convenient linkage between the modules. 
 
-Terraform state is stored in S3 buckets, by AWS account
+Terraform state is stored in S3 buckets, with separate buckets for DBP and bibleis.  Resources can be created in more than one region, and for more than one stage (i.e. Prod or Dev). Within each bucket, the directory structure clearly identifies the region and stage for terraform state
 
 The terragrunt/terraform commands are executed from a bash shell, in the directory containing a terragrunt.hcl file. This file references modules stored in a separate git repository, and provides configuration specific to the resources currently being created.
 
 AWS Profiles are referenced in the code, but should not be set explicitely. We recommend that there be no default profile in ~/.aws/config
+
+
 
 ## Initial Setup Verification
 For a complete example and to validate your local configuration, execute the following:
@@ -54,25 +56,45 @@ No changes. Infrastructure is up-to-date.
 This means that Terraform did not detect any differences between your
 configuration and real physical resources that exist. As a result, no
 actions need to be performed.
-
 ```
 
-## DBP
+## Instructions for managing DBP infrastructure
 
-Terraform state bucket: 
+### Terraform state bucket: s3://fcbh-terraform-state-dbp-596282610570
 
-### Order of Creation
-1. VPC
+### Starting directory: content-distribution/dbp-account/us-west-2/prod
 
+### Basic instruction set
 
+cd into each directory, then execute
 
+```bash
+terragrunt init
+terragrunt plan
+terragrunt apply (answer yes if the resources look correct)
+```
 
+### GitHub Access token for DBP
 
+The dbp/cicd resources require permission to access the GitHub DBP repository. From the faithcomesbyhearing account, generate a personal access token according to the following instructions https://docs.aws.amazon.com/codepipeline/latest/userguide/GitHub-create-personal-token-CLI.html
 
+Name the token appropriately so it is clear where it is being used. Suggestion: AWS CodePipeline in us-east-2
 
-GitHub Personal Access Token
-Reference: https://docs.aws.amazon.com/codepipeline/latest/userguide/GitHub-create-personal-token-CLI.html
-prior to executing the terraform code in the dbp/cicd directory, you must have a token and provide it to Terraform
+Create an environment variable suitably named so Terraform will process it as an input variable
+
 ```bash
 export TF_VAR_github_oauth_token=<github token>
 ```
+
+### Order of Creation
+
+Create resources for each of the following modules:
+
+1. vpc
+2. bastion
+3. route53
+4. certificate / 4.dbt.io
+5. elasticache
+6. rds
+7. dbp / beanstalk
+8. dbp / cicd (Note: GitHub access token is required for this step)
