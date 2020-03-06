@@ -24,12 +24,18 @@ dependency "rds" {
 dependency "elasticache" {
   config_path = "../../elasticache"
 }
-
+dependency "route53" {
+  config_path = "../../route53"
+}
+dependency "certificate" {
+  config_path = "../../certificate/dbt.io"
+}
 # to copy an RDS snapshot between accounts: https://aws.amazon.com/premiumsupport/knowledge-center/rds-snapshots-share-account/
 inputs = {
   namespace                  = "dbp"
   stage                      = ""
   name                       = "beanstalk"
+  
   application_description    = "dbp"
   vpc_id                     = dependency.vpc.outputs.vpc_id
   public_subnets             = dependency.vpc.outputs.public_subnet_ids
@@ -41,7 +47,8 @@ inputs = {
 
   description                = "DBP Elastic Beanstalk "
   # availability_zone_selector = "Any 2" # used?
-  dns_zone_id                = "" # "Z2ROOWAVSOOVLL"
+  dns_zone_id                = dependency.route53.outputs.zone_id
+  loadbalancer_certificate_arn = dependency.certificate.outputs.arn
   instance_type              = "t3.small"
 
   environment_description = "DBP Production environment"
@@ -77,9 +84,9 @@ inputs = {
 
   env_vars = {
     "APP_ENV"            = "prod"
-    "APP_URL"            = "https://v4.dbt.io"
-    "API_URL"            = "https://api.v4.dbt.io"
-    "APP_URL_PODCAST"    = "https://v4.dbt.io"
+    "APP_URL"            = "https://4.dbt.io"
+    "API_URL"            = "https://4.dbt.io"
+    "APP_URL_PODCAST"    = "https://4.dbt.io"
     "APP_DEBUG"          = "0"
     "DBP_HOST"           = dependency.rds.outputs.reader_endpoint
     "DBP_USERNAME"       = "api_node_dbp"

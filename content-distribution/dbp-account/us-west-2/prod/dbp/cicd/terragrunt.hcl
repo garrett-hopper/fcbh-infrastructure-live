@@ -16,7 +16,14 @@ dependency "dbp-beanstalk" {
   config_path = "../beanstalk"
 }
 
-# to copy an RDS snapshot between accounts: https://aws.amazon.com/premiumsupport/knowledge-center/rds-snapshots-share-account/
+# NOTE: The CodePipeline stage requires access to the GitHub repository containing the Beanstalk configuration. 
+# In addition to the input variables listed below, an additional variable (github_oauth_token) must be provided. 
+# This token must have permission to access the repository include in the inputs section
+# Reference  https://docs.aws.amazon.com/codepipeline/latest/userguide/GitHub-create-personal-token-CLI.html for information on how to generate the access token
+# Reference https://www.terraform.io/docs/configuration/variables.html for mechanisms for providing this value. 
+# options: 
+#   a) add -var="key=value" to the terraform command line
+#   b) create an environment variable of the form TF_VAR_key (example: export TF_VAR_github_oauth_token=1111111111) prior to invoking terraform
 inputs = {
   namespace                          = "dbp"
   stage                              = "prod"
@@ -25,7 +32,6 @@ inputs = {
   repo_owner                         = "bradflood"
   repo_name                          = "dbp-phoenix"
   branch                             = "master"
-  github_oauth_token                 = "c2e12dbcfdda1931329b537a8557bc874a13e024"
   elastic_beanstalk_application_name = dependency.dbp-beanstalk.outputs.elastic_beanstalk_application_name
   elastic_beanstalk_environment_name = dependency.dbp-beanstalk.outputs.elastic_beanstalk_environment_name
 }
