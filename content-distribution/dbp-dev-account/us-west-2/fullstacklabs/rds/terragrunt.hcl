@@ -1,4 +1,4 @@
-# member-account: dbp
+# member-account: dbp-dev
 
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
@@ -29,7 +29,7 @@ dependency "bastion" {
 #
 inputs = {
   namespace           = "dbp"
-  stage               = ""
+  stage               = "dev"
   name                = "api"
   vpc_id              = dependency.vpc.outputs.vpc_id
   subnets             = dependency.vpc.outputs.private_subnet_ids

@@ -25,7 +25,7 @@ dependency "rds" {
 # to copy an RDS snapshot between accounts: https://aws.amazon.com/premiumsupport/knowledge-center/rds-snapshots-share-account/
 inputs = {
   namespace                     = "dbp"
-  stage                         = ""
+  stage                         = "dev"
   name                          = "beanstalk"
   application_description       = "dbp"
   vpc_id                        = dependency.vpc.outputs.vpc_id
@@ -73,11 +73,11 @@ inputs = {
   ]
 
   env_vars = {
-    "APP_ENV"            = "prod"
-    "APP_URL"            = "https://v4.dbt.io"
-    "API_URL"            = "https://api.v4.dbt.io"
-    "APP_URL_PODCAST"    = "https://v4.dbt.io"
-    "APP_DEBUG"          = "0"
+    "APP_ENV"            = "dev"
+    "APP_URL"            = "https://dev.v4.dbt.io"
+    "API_URL"            = "https://dev.v4.dbt.io/api"
+    "APP_URL_PODCAST"    = "https://dev.v4.dbt.io"
+    "APP_DEBUG"          = "1"
     "DBP_HOST"           = dependency.rds.outputs.reader_endpoint
     "DBP_USERNAME"       = "api_node_dbp"
     "DBP_USERS_HOST"     = dependency.rds.outputs.endpoint

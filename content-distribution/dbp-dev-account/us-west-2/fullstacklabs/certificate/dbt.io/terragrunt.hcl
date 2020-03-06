@@ -1,9 +1,9 @@
-# member-account: dbp (596282610570)
+# member-account: dbp-dev
 
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "../../../../../../fcbh-infrastructure-modules//vpc"
+  source = "../../../../../../../fcbh-infrastructure-modules//certificate"
   # source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git?ref=master"
 }
 
@@ -13,11 +13,9 @@ include {
 }
 
 inputs = {
-
-  namespace = "dbp"
-  stage     = ""
-  name      = "api"
-
-  cidr_block = "172.20.0.0/16"
-
+  namespace                   = "dbp"
+  stage                       = "dev"
+  name                        = "certificate"
+  domain_name                 = "dbt.io"
+  subject_alternative_names   = ["dev.v4.dbt.io"]
 }
