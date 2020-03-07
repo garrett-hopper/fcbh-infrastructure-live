@@ -3,7 +3,7 @@
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "../../../../../../fcbh-infrastructure-modules//cicd"
+  source = "../../../../../../../fcbh-infrastructure-modules//cicd"
   # source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git?ref=master"
 }
 
@@ -25,7 +25,7 @@ inputs = {
   elastic_beanstalk_application_name = dependency.bibleis-beanstalk.outputs.elastic_beanstalk_application_name
   elastic_beanstalk_environment_name = dependency.bibleis-beanstalk.outputs.elastic_beanstalk_environment_name
   repo_owner                         = "faithcomesbyhearing"
-  repo_name                          = "dbp"
+  repo_name                          = "bibleis"
   branch                             = "master"
   # buildspec = 
 }

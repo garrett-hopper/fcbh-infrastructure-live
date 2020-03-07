@@ -3,7 +3,7 @@
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "../../../../../../fcbh-infrastructure-modules//elastic-beanstalk"
+  source = "../../../../../../../fcbh-infrastructure-modules//elastic-beanstalk"
   #source = "git::https://github.com/bradflood/fcbh-infrastructure-modules.git?ref=master"
 }
 
@@ -13,16 +13,16 @@ include {
 }
 
 dependency "vpc" {
-  config_path = "../../vpc"
+  config_path = "../vpc"
 }
 dependency "bastion" {
-  config_path = "../../bastion"
+  config_path = "../bastion"
 }
 dependency "route53" {
-  config_path = "../../route53"
+  config_path = "../route53"
 }
 dependency "certificate" {
-  config_path = "../../certificate/dbt.io"
+  config_path = "../certificate"
 }
 
 
@@ -32,7 +32,7 @@ inputs = {
   namespace = "bibleis"
   name      = "web"
   stage     = "prod"
-  
+
   vpc_id                     = dependency.vpc.outputs.vpc_id
   public_subnets             = dependency.vpc.outputs.public_subnet_ids
   private_subnets            = dependency.vpc.outputs.private_subnet_ids
@@ -40,11 +40,11 @@ inputs = {
   additional_security_groups = [dependency.bastion.outputs.security_group_id]
   keypair                    = "bibleis"
 
-  description                = "Bibleis Web"
-  dns_zone_id                = dependency.route53.outputs.zone_id
+  description                  = "Bibleis Web"
+  dns_zone_id                  = dependency.route53.outputs.zone_id
   loadbalancer_certificate_arn = dependency.certificate.outputs.arn
-  instance_type              = "t3.small"
-  loadbalancer_type       = "application"
+  instance_type                = "t3.small"
+  loadbalancer_type            = "application"
 
 
   application_description = "bible.is Web Elastic Beanstalk Application"
@@ -64,35 +64,35 @@ inputs = {
   autoscale_upper_bound     = 80
   autoscale_upper_increment = 1
 
-  rolling_update_enabled  = true
-  rolling_update_type     = "Health"
+  rolling_update_enabled = true
+  rolling_update_type    = "Health"
 
   updating_min_in_service = 0
   updating_max_batch      = 1
 
-  healthcheck_url  = "/"
-  application_port = 80
-  logs_retention_in_days  = 60
+  healthcheck_url        = "/"
+  application_port       = 80
+  logs_retention_in_days = 60
 
-  solution_stack_name     = "64bit Amazon Linux 2018.03 v4.11.0 running Node.js"  
+  solution_stack_name = "64bit Amazon Linux 2018.03 v4.11.0 running Node.js"
   # upgrade candidate: 64bit Amazon Linux 2018.03 v4.13.0 running Node.js 
 
-env_vars = {
-    "BASE_API_ROUTE"         = "https://4.dbt.io/api"  
-    "NODE_ENV"               = "production"  
-    "npm_config_unsafe_perm" = "1"      
-}
+  env_vars = {
+    "BASE_API_ROUTE"         = "https://4.dbt.io/api"
+    "NODE_ENV"               = "production"
+    "npm_config_unsafe_perm" = "1"
+  }
 
 
   // https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
-   ###### put as much of this as possible in .ebextensions, it's related to eb environment, not the durable configuration
+  ###### put as much of this as possible in .ebextensions, it's related to eb environment, not the durable configuration
   additional_settings = [
     {
       namespace = "aws:elasticbeanstalk:environment:process:default"
       name      = "StickinessEnabled"
       value     = "false"
     },
-  
+
 
     # is a keypair needed if we enable SSM Session Manager? or is there another reason the keypair is needed
     # {
@@ -101,7 +101,7 @@ env_vars = {
     #   value     = "reader-web-stage"
     # },
 
-    
+
     # uncomment when bibleis node app is deployed
     # {
     #   name      = "NodeCommand"
@@ -113,7 +113,7 @@ env_vars = {
       namespace = "aws:elasticbeanstalk:container:nodejs"
       value     = "10.15.1"
     },
-   {
+    {
       name      = "AppSource"
       namespace = "aws:cloudformation:template:parameter"
       value     = "http://s3-us-west-2.amazonaws.com/elasticbeanstalk-samples-us-west-2/nodejs-sample-v2.zip"
