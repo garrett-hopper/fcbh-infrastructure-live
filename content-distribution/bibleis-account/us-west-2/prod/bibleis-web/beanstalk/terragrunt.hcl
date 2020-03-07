@@ -12,6 +12,20 @@ include {
   path = find_in_parent_folders()
 }
 
+dependency "vpc" {
+  config_path = "../../vpc"
+}
+dependency "bastion" {
+  config_path = "../../bastion"
+}
+dependency "route53" {
+  config_path = "../../route53"
+}
+dependency "certificate" {
+  config_path = "../../certificate/dbt.io"
+}
+
+
 inputs = {
 
   # administrative, to match cloudposse label
@@ -19,9 +33,59 @@ inputs = {
   name      = "web"
   stage     = "prod"
   
-   ###### put as much of this as possible in .ebextensions, it's related to eb environment, not the durable configuration
+  vpc_id                     = dependency.vpc.outputs.vpc_id
+  public_subnets             = dependency.vpc.outputs.public_subnet_ids
+  private_subnets            = dependency.vpc.outputs.private_subnet_ids
+  allowed_security_groups    = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
+  additional_security_groups = [dependency.bastion.outputs.security_group_id]
+  keypair                    = "bibleis"
+
+  description                = "Bibleis Web"
+  dns_zone_id                = dependency.route53.outputs.zone_id
+  loadbalancer_certificate_arn = dependency.certificate.outputs.arn
+  instance_type              = "t3.small"
+  loadbalancer_type       = "application"
+
+
+  application_description = "bible.is Web Elastic Beanstalk Application"
+  environment_description = "bible.is Web Production environment"
+  version_label           = ""
+  force_destroy           = true
+  root_volume_size        = 8
+  root_volume_type        = "gp2"
+
+  autoscale_min             = 2
+  autoscale_max             = 3
+  autoscale_measure_name    = "CPUUtilization"
+  autoscale_statistic       = "Average"
+  autoscale_unit            = "Percent"
+  autoscale_lower_bound     = 20
+  autoscale_lower_increment = -1
+  autoscale_upper_bound     = 80
+  autoscale_upper_increment = 1
+
+  rolling_update_enabled  = true
+  rolling_update_type     = "Health"
+
+  updating_min_in_service = 0
+  updating_max_batch      = 1
+
+  healthcheck_url  = "/"
+  application_port = 80
+  logs_retention_in_days  = 60
+
+  solution_stack_name     = "64bit Amazon Linux 2018.03 v4.11.0 running Node.js"  
+  # upgrade candidate: 64bit Amazon Linux 2018.03 v4.13.0 running Node.js 
+
+env_vars = {
+    "BASE_API_ROUTE"         = "https://4.dbt.io/api"  
+    "NODE_ENV"               = "production"  
+    "npm_config_unsafe_perm" = "1"      
+}
+
 
   // https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
+   ###### put as much of this as possible in .ebextensions, it's related to eb environment, not the durable configuration
   additional_settings = [
     {
       namespace = "aws:elasticbeanstalk:environment:process:default"
@@ -37,12 +101,7 @@ inputs = {
     #   value     = "reader-web-stage"
     # },
 
-    # these environment variables are also set below. can this be removed?
-    {
-      namespace = "aws:cloudformation:template:parameter"
-      name      = "EnvironmentVariables"
-      value     = "npm_config_unsafe_perm=1,NODE_ENV=production,BASE_API_ROUTE=https://api.v4.dbt.io"
-    },
+    
     # uncomment when bibleis node app is deployed
     # {
     #   name      = "NodeCommand"
@@ -54,13 +113,7 @@ inputs = {
       namespace = "aws:elasticbeanstalk:container:nodejs"
       value     = "10.15.1"
     },
-# TODO: configure after discussion with Jon
-    # {
-    #   name      = "SSLCertificateArns"
-    #   namespace = "aws:elbv2:listener:443"
-    #   value     = "arn:aws:acm:us-west-2:509573027517:certificate/9c653674-b1de-4a7d-9483-87e1fd6962e0"
-    # },    
-    {
+   {
       name      = "AppSource"
       namespace = "aws:cloudformation:template:parameter"
       value     = "http://s3-us-west-2.amazonaws.com/elasticbeanstalk-samples-us-west-2/nodejs-sample-v2.zip"
@@ -78,24 +131,7 @@ inputs = {
 
   ]
 
-  application_description = "bibleis Web Elastic Beanstalk Application"
-  availability_zones      = ["us-west-2a", "us-west-2b"]
-  dns_zone_id             = "" # "Z2ROOWAVSOOVLL"
-  enable_stream_logs      = true
-  env_vars = {
- # TODO: is this duplicating aws:cloudformation:template:parameter (lines 82-84)?     
-    "BASE_API_ROUTE"         = "https://api.v4.dbt.io"
-    "NODE_ENV"               = "production"
-    "npm_config_unsafe_perm" = "1"
-  }  
-  environment_description = "bibleis Web Blue"
-  #healthcheck_url = "/bible/ENGESV/MAT/1"  # uncomment when app is deployed
-  instance_type           = "t3.small"
-  loadbalancer_type       = "application"
-  logs_retention_in_days  = 60
-  nat_gateway_enabled     = true
-  rolling_update_type     = "Health" # With Immutable, issues, maybe unrelated to Immutable
-  solution_stack_name     = "64bit Amazon Linux 2018.03 v4.11.0 running Node.js"
+
 
 }
 
