@@ -29,9 +29,9 @@ dependency "certificate" {
 inputs = {
 
   # administrative, to match cloudposse label
-  namespace = "bibleis"
+  namespace = "sample"
   name      = "web"
-  stage     = "prod"
+  stage     = "dev"
 
   vpc_id                     = dependency.vpc.outputs.vpc_id
   public_subnets             = dependency.vpc.outputs.public_subnet_ids
@@ -41,8 +41,10 @@ inputs = {
   keypair                    = "bibleis-dev"
 
   description                  = "Bibleis Web"
-  dns_zone_id                  = dependency.route53.outputs.zone_id
-  loadbalancer_certificate_arn = dependency.certificate.outputs.arn
+  # certs aren't yet validated
+  #dns_zone_id                  = dependency.route53.outputs.zone_id
+  #loadbalancer_certificate_arn = dependency.certificate.outputs.arn
+
   instance_type                = "t3.small"
   loadbalancer_type            = "application"
 
@@ -84,53 +86,12 @@ inputs = {
   }
 
 
-  // https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
-  ###### put as much of this as possible in .ebextensions, it's related to eb environment, not the durable configuration
-  additional_settings = [
-    {
-      namespace = "aws:elasticbeanstalk:environment:process:default"
-      name      = "StickinessEnabled"
-      value     = "false"
-    },
-
-
-    # is a keypair needed if we enable SSM Session Manager? or is there another reason the keypair is needed
-    # {
-    #   namespace = "aws:autoscaling:launchconfiguration"
-    #   name      = "EC2KeyName"
-    #   value     = "reader-web-stage"
-    # },
-
-
-    # uncomment when bibleis node app is deployed
+    # TODO: put this in package.json for the start command
     # {
     #   name      = "NodeCommand"
     #   namespace = "aws:elasticbeanstalk:container:nodejs"
     #   value     = "./node_modules/.bin/cross-env NODE_ENV=production node nextServer"
     # },
-    {
-      name      = "NodeVersion"
-      namespace = "aws:elasticbeanstalk:container:nodejs"
-      value     = "10.15.1"
-    },
-    {
-      name      = "AppSource"
-      namespace = "aws:cloudformation:template:parameter"
-      value     = "http://s3-us-west-2.amazonaws.com/elasticbeanstalk-samples-us-west-2/nodejs-sample-v2.zip"
-    },
-    {
-      name      = "Automatically Terminate Unhealthy Instances"
-      namespace = "aws:elasticbeanstalk:monitoring"
-      value     = "true"
-    },
-    {
-      name      = "XRayEnabled"
-      namespace = "aws:elasticbeanstalk:xray"
-      value     = "true"
-    }
-
-  ]
-
 
 
 }
