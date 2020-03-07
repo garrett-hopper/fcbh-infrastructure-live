@@ -38,4 +38,4 @@ Create resources for each of the following modules:
 3. route53
 4. certificate
 5. beanstalk
-6. cicd
+6. cicd (Note: GitHub access token is required for this step)

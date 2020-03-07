@@ -51,33 +51,12 @@ inputs = {
 
   application_description = "bible.is Web Elastic Beanstalk Application"
   environment_description = "bible.is Web Production environment"
-  version_label           = ""
-  force_destroy           = true
-  root_volume_size        = 8
-  root_volume_type        = "gp2"
-
-  autoscale_min             = 2
-  autoscale_max             = 3
-  autoscale_measure_name    = "CPUUtilization"
-  autoscale_statistic       = "Average"
-  autoscale_unit            = "Percent"
-  autoscale_lower_bound     = 20
-  autoscale_lower_increment = -1
-  autoscale_upper_bound     = 80
-  autoscale_upper_increment = 1
-
-  rolling_update_enabled = true
-  rolling_update_type    = "Health"
-
-  updating_min_in_service = 0
-  updating_max_batch      = 1
 
   healthcheck_url        = "/"
-  application_port       = 80
+  enable_stream_logs = true
   logs_retention_in_days = 60
 
-  solution_stack_name = "64bit Amazon Linux 2018.03 v4.11.0 running Node.js"
-  # upgrade candidate: 64bit Amazon Linux 2018.03 v4.13.0 running Node.js 
+  solution_stack_name = "64bit Amazon Linux 2018.03 v4.13.0 running Node.js"
 
   env_vars = {
     "BASE_API_ROUTE"         = "https://4.dbt.io/api"
