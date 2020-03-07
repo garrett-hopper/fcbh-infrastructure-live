@@ -37,5 +37,5 @@ Create resources for each of the following modules:
 2. bastion
 3. route53
 4. certificate
-5. bibleis / beanstalk
-6. bibleis / cicd
+5. beanstalk
+6. cicd
