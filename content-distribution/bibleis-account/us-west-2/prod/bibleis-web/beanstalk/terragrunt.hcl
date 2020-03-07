@@ -29,6 +29,9 @@ dependency "certificate" {
 inputs = {
 
   # administrative, to match cloudposse label
+  # namespace                          = "bibleis"
+  # name                               = "cicd"
+  # stage                              = ""
   namespace = "sample"
   name      = "web"
   stage     = "dev"
@@ -40,20 +43,20 @@ inputs = {
   additional_security_groups = [dependency.bastion.outputs.security_group_id]
   keypair                    = "bibleis-dev"
 
-  description                  = "Bibleis Web"
+  description = "Bibleis Web"
   # certs aren't yet validated
   #dns_zone_id                  = dependency.route53.outputs.zone_id
   #loadbalancer_certificate_arn = dependency.certificate.outputs.arn
 
-  instance_type                = "t3.small"
-  loadbalancer_type            = "application"
+  instance_type     = "t3.small"
+  loadbalancer_type = "application"
 
 
   application_description = "bible.is Web Elastic Beanstalk Application"
   environment_description = "bible.is Web Production environment"
 
   healthcheck_url        = "/"
-  enable_stream_logs = true
+  enable_stream_logs     = true
   logs_retention_in_days = 60
 
   solution_stack_name = "64bit Amazon Linux 2018.03 v4.13.1 running Node.js"
@@ -65,12 +68,12 @@ inputs = {
   }
 
 
-    # TODO: put this in package.json for the start command
-    # {
-    #   name      = "NodeCommand"
-    #   namespace = "aws:elasticbeanstalk:container:nodejs"
-    #   value     = "./node_modules/.bin/cross-env NODE_ENV=production node nextServer"
-    # },
+  # TODO: put this in package.json for the start command
+  # {
+  #   name      = "NodeCommand"
+  #   namespace = "aws:elasticbeanstalk:container:nodejs"
+  #   value     = "./node_modules/.bin/cross-env NODE_ENV=production node nextServer"
+  # },
 
 
 }

@@ -17,9 +17,14 @@ dependency "bibleis-beanstalk" {
 }
 
 inputs = {
-  namespace                          = "bibleis"
-  stage                              = ""
-  name                               = "cicd"
+  # namespace                          = "bibleis"
+  # name                               = "cicd"
+  # stage                              = ""  
+  namespace = "sample"
+  name      = "cicd"
+  stage     = "dev"
+
+
   application_description            = "CICD resources for Bible.is web beanstalk"
   elastic_beanstalk_application_name = dependency.bibleis-beanstalk.outputs.elastic_beanstalk_application_name
   elastic_beanstalk_environment_name = dependency.bibleis-beanstalk.outputs.elastic_beanstalk_environment_name
