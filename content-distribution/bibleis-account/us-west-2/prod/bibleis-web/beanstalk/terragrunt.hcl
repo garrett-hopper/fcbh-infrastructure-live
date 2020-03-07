@@ -56,7 +56,7 @@ inputs = {
   enable_stream_logs = true
   logs_retention_in_days = 60
 
-  solution_stack_name = "64bit Amazon Linux 2018.03 v4.13.0 running Node.js"
+  solution_stack_name = "64bit Amazon Linux 2018.03 v4.13.1 running Node.js"
 
   env_vars = {
     "BASE_API_ROUTE"         = "https://4.dbt.io/api"
