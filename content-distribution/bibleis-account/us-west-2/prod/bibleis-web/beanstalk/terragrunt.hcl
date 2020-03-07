@@ -38,7 +38,7 @@ inputs = {
   private_subnets            = dependency.vpc.outputs.private_subnet_ids
   allowed_security_groups    = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
   additional_security_groups = [dependency.bastion.outputs.security_group_id]
-  keypair                    = "bibleis"
+  keypair                    = "bibleis-dev"
 
   description                  = "Bibleis Web"
   dns_zone_id                  = dependency.route53.outputs.zone_id

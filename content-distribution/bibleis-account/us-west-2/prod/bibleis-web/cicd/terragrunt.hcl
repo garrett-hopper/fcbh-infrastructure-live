@@ -16,7 +16,6 @@ dependency "bibleis-beanstalk" {
   config_path = "../beanstalk"
 }
 
-# to copy an RDS snapshot between accounts: https://aws.amazon.com/premiumsupport/knowledge-center/rds-snapshots-share-account/
 inputs = {
   namespace                          = "bibleis"
   stage                              = ""
@@ -24,8 +23,7 @@ inputs = {
   application_description            = "CICD resources for Bible.is web beanstalk"
   elastic_beanstalk_application_name = dependency.bibleis-beanstalk.outputs.elastic_beanstalk_application_name
   elastic_beanstalk_environment_name = dependency.bibleis-beanstalk.outputs.elastic_beanstalk_environment_name
-  repo_owner                         = "faithcomesbyhearing"
-  repo_name                          = "bibleis"
+  repo_owner                         = "bradflood"
+  repo_name                          = "nodejs-simple"
   branch                             = "master"
-  # buildspec = 
 }
