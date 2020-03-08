@@ -29,12 +29,10 @@ dependency "certificate" {
 inputs = {
 
   # administrative, to match cloudposse label
-  # namespace                          = "bibleis"
-  # name                               = "cicd"
-  # stage                              = ""
-  namespace = "sample"
-  name      = "web"
-  stage     = "dev"
+  namespace                          = "bibleis"
+  name                               = "web"
+  stage                              = ""
+
 
   vpc_id                     = dependency.vpc.outputs.vpc_id
   public_subnets             = dependency.vpc.outputs.public_subnet_ids
@@ -56,7 +54,7 @@ inputs = {
   environment_description = "bible.is Web Production environment"
 
   healthcheck_url        = "/"
-  enable_stream_logs     = true
+  # enable_stream_logs     = true # defaults to false.. leave off until ready for production.. they must be deleted by hand, a pain
   logs_retention_in_days = 60
 
   solution_stack_name = "64bit Amazon Linux 2018.03 v4.13.1 running Node.js"
