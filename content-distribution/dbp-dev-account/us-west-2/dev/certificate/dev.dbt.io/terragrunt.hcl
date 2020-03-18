@@ -16,9 +16,5 @@ inputs = {
   namespace                   = "dbp"
   stage                       = "dev"
   name                        = "certificate"
-  domain_name                 = "dbt.io"
-  # note that this requires an AWS route53 zone accessible to this IAM user,
-  # thus we create such in terragrunt elsewehre, even though it is not the actual
-  # worldwide DNS zone (no SOA record)
-  subject_alternative_names   = ["dev.v4.dbt.io"]
+  domain_name                 = "dev.dbt.io"
 }

@@ -17,5 +17,5 @@ inputs = {
   namespace = "dbp"
   stage     = "dev"
   name      = "api"
-  zone_name = "dbt.io"
+  zone_name = "dev.dbt.io"
 }
