@@ -63,7 +63,7 @@ actions need to be performed.
 FaithComesByHearing has the following infrastructure components, each of which has it's own documentation
 
 Digital Bible Platform [(Prod)](content-distribution/dbp-account/README.md) 
-[(Dev)](content-distribution/dbp-account-dev/README.md)
+[(Dev)](content-distribution/dbp-dev-account/README.md)
 
 bible.is [(Prod)](content-distribution/bibleis-account/README.md) 
-[(Dev)](content-distribution/bibleis-account-dev/README.md)
+[(Dev)](content-distribution/bibleis-dev-account/README.md)
