@@ -28,7 +28,7 @@ dependency "route53" {
   config_path = "../../route53"
 }
 dependency "certificate" {
-  config_path = "../../certificate/dbt.io"
+  config_path = "../../certificate/dev.dbt.io"
 }
 # to copy an RDS snapshot between accounts: https://aws.amazon.com/premiumsupport/knowledge-center/rds-snapshots-share-account/
 inputs = {
@@ -51,14 +51,14 @@ inputs = {
   loadbalancer_certificate_arn = dependency.certificate.outputs.arn
   instance_type              = "t3.small"
 
-  environment_description = "DBP Production environment"
+  environment_description = "DBP Development environment"
   version_label           = ""
   force_destroy           = true
   root_volume_size        = 8
   root_volume_type        = "gp2"
 
-  autoscale_min             = 2
-  autoscale_max             = 3
+  autoscale_min             = 1
+  autoscale_max             = 2
   autoscale_measure_name    = "CPUUtilization"
   autoscale_statistic       = "Average"
   autoscale_unit            = "Percent"
@@ -75,7 +75,7 @@ inputs = {
   healthcheck_url  = "/"
   application_port = 80
 
-  solution_stack_name = "64bit Amazon Linux 2018.03 v2.9.2 running PHP 7.2"
+  solution_stack_name = "64bit Amazon Linux 2018.03 v2.9.3 running PHP 7.2"
 
   // https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
   additional_settings = [
