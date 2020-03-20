@@ -45,7 +45,7 @@ inputs = {
   keypair                    = "dbp-dev"
   # availability_zones         = dependency.vpc.outputs.availability_zones # used?
 
-  description                = "DBP Elastic Beanstalk "
+  description                = "DBP Elastic Beanstalk"
   # availability_zone_selector = "Any 2" # used?
   dns_zone_id                = dependency.route53.outputs.zone_id
   loadbalancer_certificate_arn = dependency.certificate.outputs.arn
@@ -84,11 +84,12 @@ inputs = {
 
   env_vars = {
     "APP_ENV"            = "dev"
-    "APP_URL"            = "https://dev.v4.dbt.io"
-    "API_URL"            = "https://dev.v4.dbt.io/api"
-    "APP_URL_PODCAST"    = "https://dev.v4.dbt.io"
+    "APP_URL"            = "https://dev.dbt.io"
+    "API_URL"            = "https://dev.dbt.io/api"
+    "APP_URL_PODCAST"    = "https://dev.dbt.io"
     "APP_DEBUG"          = "1"
     "DBP_HOST"           = dependency.rds.outputs.reader_endpoint
+    "DBP_DATABSE"        = "dbp_200309"
     "DBP_USERNAME"       = "api_node_dbp"
     "DBP_USERS_HOST"     = dependency.rds.outputs.endpoint
     "DBP_USERS_DATABASE" = "dbp_users"
