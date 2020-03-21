@@ -54,7 +54,7 @@ inputs = {
   healthcheck_url    = "/"
   enable_stream_logs = true
 
-  solution_stack_name = "64bit Amazon Linux 2018.03 v2.9.2 running PHP 7.2"
+  solution_stack_name = "64bit Amazon Linux 2018.03 v2.9.3 running PHP 7.2"
 
   env_vars = {
     "APP_ENV"            = "prod"
