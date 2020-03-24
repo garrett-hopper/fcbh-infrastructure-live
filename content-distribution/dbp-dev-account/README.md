@@ -17,11 +17,17 @@ terragrunt plan
 terragrunt apply (answer yes if the resources look correct)
 ```
 
+### Route 53 extras
+
+This process creates and populates the DNS zone dev.dbt.io.  After running terragrunt here, the below must also be done:
+1. you must manually add an NS record to this zone in the parent domain dbt.io.  If this isn't done, the created certificates won't be verified.  
+2. you must also manually add an A Alias record for dev.dbt.io to this subdomain dev.dbt.io that points at the the created beanstalk.dev.dbt.io.  If this isn't done, you can't successfully access the beanstalk via https.
+
 ### CICD extras
 
-The dbp/cicd resources require permission to access the GitHub DBP repository. From the faithcomesbyhearing account, generate a personal access token according to the following instructions https://docs.aws.amazon.com/codepipeline/latest/userguide/GitHub-create-personal-token-CLI.html
+In order to successfully create the AWS CodePipeline, the dbp/cicd resources require permission to access the GitHub DBP repository. From the faithcomesbyhearing account, generate a personal access token according to the following instructions https://docs.aws.amazon.com/codepipeline/latest/userguide/GitHub-create-personal-token-CLI.html
 
-Name the token appropriately so it is clear where it is being used. Suggestion: AWS CodePipeline in us-east-2
+Name the token appropriately so it is clear where it is being used. Suggestion: AWS CodePipeline in us-west-2
 
 Create an environment variable suitably named so Terraform will process it as an input variable
 
@@ -29,7 +35,9 @@ Create an environment variable suitably named so Terraform will process it as an
 export TF_VAR_github_oauth_token=<github token>
 ```
 
-Furthermore, to deploy successfully, dbp/.ebextensions/env requires access to some special files.  Put in place via
+Now terragrunt can be run, which will use the token to setup the pipeline.
+
+In addition, in order to successfully deploy the code, dbp/.ebextensions/env requires access to some secrets.  Put them in place via
 
 ```bash
 aws --profile dbp-dev-admin s3 sync dbp/ s3://elasticbeanstalk-us-west-2-078432969830/dbp/
@@ -41,9 +49,9 @@ Create resources for each of the following modules:
 
 1. vpc
 2. bastion
-3. route53
+3. route53 (see Route 53 extras above)
 4. certificate/4.dbt.io
 5. elasticache
 6. rds
 7. dbp/beanstalk
-8. dbp/cicd (Note: see above CICD extras section for prerequisites)
+8. dbp/cicd (see CICD extras above)
