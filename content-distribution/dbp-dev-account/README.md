@@ -56,6 +56,6 @@ Create resources for each of the following modules:
 3. route53 (see Route 53 extras above)
 4. certificate/4.dbt.io
 5. elasticache
-6. rds
+6. rds (see RDS note above)
 7. dbp/beanstalk
 8. dbp/cicd (see CICD extras above)
