@@ -3,9 +3,9 @@ For information on getting started, [start here](../../README.md)
 
 ## Instructions for managing DBP infrastructure
 
-### Terraform state bucket: s3://fcbh-terraform-state-dbp-596282610570
+### Terraform state bucket: s3://fcbh-terraform-state-dbp-dev
 
-### Starting directory: content-distribution/dbp-account-dev/us-west-2/fullstacklabs
+### Starting directory: content-distribution/dbp-dev-account/us-west-2/dev/
 
 ### Basic instruction set
 
