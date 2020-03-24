@@ -43,6 +43,10 @@ In addition, in order to successfully deploy the code, dbp/.ebextensions/env req
 aws --profile dbp-dev-admin s3 sync dbp/ s3://elasticbeanstalk-us-west-2-078432969830/dbp/
 ```
 
+### RDS note
+
+Please note that while the DBP_HOST and DBP_USERS_HOST in dbp/beanstalk/terragrunt.hcl can be set to the RDS cluster endpoints (and should be, in order to properly scale across additional instances and availability zones), in contrast, administrative access via sequelpro through the bastion must point at the instance endpoints in order to successfully connect (they won't work through the cluster endpoints).
+
 ### Order of Creation
 
 Create resources for each of the following modules:
