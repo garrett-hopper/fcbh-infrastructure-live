@@ -59,3 +59,4 @@ Create resources for each of the following modules:
 6. rds (see RDS note above)
 7. dbp/beanstalk
 8. dbp/cicd (see CICD extras above)
+9. cloudfront
