@@ -48,6 +48,7 @@ inputs = {
   description                = "DBP Elastic Beanstalk"
   # availability_zone_selector = "Any 2" # used?
   dns_zone_id                = dependency.route53.outputs.zone_id
+  dns_alias                  = "dev.dbt.io"
   loadbalancer_certificate_arn = dependency.certificate.outputs.arn
   instance_type              = "t3.small"
 
