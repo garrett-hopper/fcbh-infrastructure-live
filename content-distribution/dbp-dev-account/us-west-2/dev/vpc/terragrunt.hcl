@@ -18,6 +18,6 @@ inputs = {
   stage     = "dev"
   name      = "api"
 
-  cidr_block = "172.20.0.0/16"
+  cidr_block = "172.17.0.0/16"
 
 }

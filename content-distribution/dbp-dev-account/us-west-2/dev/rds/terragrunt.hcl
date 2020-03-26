@@ -36,5 +36,5 @@ inputs = {
   security_groups     = [dependency.vpc.outputs.vpc_default_security_group_id, dependency.bastion.outputs.security_group_id]
   instance_type       = "db.t3.small"
   db_name             = "dbp_dev"
-  snapshot_identifier = "pre-terraform-snapshot"
+  snapshot_identifier = "dev-pre-terraform"
 }

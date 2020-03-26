@@ -16,6 +16,5 @@ inputs = {
   namespace                   = "dbp"
   stage                       = "dev"
   name                        = "certificate"
-  domain_name                 = "dbt.io"
-  subject_alternative_names   = ["dev.v4.dbt.io"]
+  domain_name                 = "dev.dbt.io"
 }
