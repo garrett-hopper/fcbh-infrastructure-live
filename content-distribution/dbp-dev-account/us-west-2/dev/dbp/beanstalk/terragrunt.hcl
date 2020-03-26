@@ -94,6 +94,6 @@ inputs = {
     "DBP_USERS_HOST"     = dependency.rds.outputs.endpoint
     "DBP_USERS_DATABASE" = "dbp_users"
     "DBP_USERS_USERNAME" = "api_node_dbp"
-    "MEMCACHE_HOST"      = dependency.elasticache.outputs.cluster_configuration_endpoint
+    "MEMCACHED_HOST"      = dependency.elasticache.outputs.cluster_address
   }
 }
