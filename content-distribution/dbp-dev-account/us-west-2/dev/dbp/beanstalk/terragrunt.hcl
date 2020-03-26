@@ -41,7 +41,7 @@ inputs = {
   public_subnets             = dependency.vpc.outputs.public_subnet_ids
   private_subnets            = dependency.vpc.outputs.private_subnet_ids
   allowed_security_groups    = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
-  additional_security_groups = [dependency.bastion.outputs.security_group_id]
+  additional_security_groups = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
   keypair                    = "dbp-dev"
   # availability_zones         = dependency.vpc.outputs.availability_zones # used?
 
