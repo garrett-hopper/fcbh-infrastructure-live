@@ -20,14 +20,14 @@ dependency "certificate" {
 inputs = {
   aws_region               = "us-east-2"
   namespace                = "dbp"
-  stage                    = "prod"
+  stage                    = "dev"
   name                     = "cloudfront"
   price_class              = "PriceClass_200"
-  aliases                  = ["cloudfront-dbp.dbt.io"]
+  aliases                  = ["cdn.dev.dbt.io"]
   log_prefix               = "cloudfront/dbp-dev"
   acm_certificate_arn      = dependency.certificate.outputs.arn
   minimum_protocol_version = "TLSv1.1_2016"
-  cors_allowed_origins     = ["*.dbt.io"]
+  cors_allowed_origins     = ["*.dev.dbt.io"]
   viewer_protocol_policy   = "allow-all"
   origin_force_destroy     = false
 }
