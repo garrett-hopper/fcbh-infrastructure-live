@@ -37,4 +37,8 @@ inputs = {
   instance_type       = "db.t3.small"
   db_name             = "dbp_dev"
   snapshot_identifier = "pre-terraform-snapshot"
+  autoscaling_enabled        = true
+  autoscaling_target_metrics = "RDSReaderAverageDatabaseConnections"
+  autoscaling_target_value   = 70 # tied to instance_type. db.t3.small max connections is 90, so scale up before that target is hit
+  autoscaling_min_capacity   = 2  # note: this compensates for a bug in the cloudposse module. In addition to read _replica count, add 1 for the writer. Reference: https://github.com/cloudposse/terraform-aws-rds-cluster/issues/63  
 }
