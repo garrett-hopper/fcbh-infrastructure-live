@@ -3,7 +3,7 @@
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "../../../../../../../fcbh-infrastructure-modules//cloudfront"
+  source = "../../../../../../fcbh-infrastructure-modules//cloudfront"
   # source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git?ref=master"
 }
 
@@ -23,6 +23,7 @@ inputs = {
   stage                    = "dev"
   name                     = "cloudfront"
   price_class              = "PriceClass_200"
+  parent_zone_name         = "dev.dbt.io"
   aliases                  = ["cdn.dev.dbt.io"]
   log_prefix               = "cloudfront/dbp-dev"
   acm_certificate_arn      = dependency.certificate.outputs.arn
