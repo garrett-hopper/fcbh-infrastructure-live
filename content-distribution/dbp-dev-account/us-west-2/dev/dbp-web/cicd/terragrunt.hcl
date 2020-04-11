@@ -32,7 +32,7 @@ inputs = {
   application_description            = "CICD resources for DBP Web Beanstalk"
   repo_owner                         = "faithcomesbyhearing"
   repo_name                          = "dbp-web"
-  branch                             = "master"
+  branch                             = "develop"
   elastic_beanstalk_application_name = dependency.dbp-web-beanstalk.outputs.elastic_beanstalk_application_name
   elastic_beanstalk_environment_name = dependency.dbp-web-beanstalk.outputs.elastic_beanstalk_environment_name
 }
