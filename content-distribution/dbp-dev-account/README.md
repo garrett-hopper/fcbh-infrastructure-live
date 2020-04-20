@@ -51,12 +51,13 @@ Please note that while the DBP_HOST and DBP_USERS_HOST in dbp/beanstalk/terragru
 
 Create resources for each of the following modules:
 
-1. vpc
-2. bastion
-3. route53 (see Route 53 extras above)
-4. certificate/4.dbt.io
-5. elasticache
-6. rds (see RDS note above)
-7. dbp/beanstalk
-8. dbp/cicd (see CICD extras above)
-9. cloudfront
+ 1. vpc
+ 2. bastion
+ 3. route53 (see Route 53 extras above)
+ 4. certificate/4.dbt.io
+ 5. elasticache
+ 6. rds (see RDS note above)
+ 7. dbp/beanstalk
+ 8. dbp/cicd (see CICD extras above)
+ 9. dbp/monitoring
+10. cloudfront
