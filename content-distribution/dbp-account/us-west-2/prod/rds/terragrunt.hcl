@@ -14,10 +14,18 @@ include {
 
 dependency "vpc" {
   config_path = "../vpc"
+  mock_outputs = {
+    vpc_id = "temporary-dummy-id"
+    private_subnet_ids = []
+    vpc_default_security_group_id = ""
+  }  
 }
 dependency "bastion" {
   config_path = "../bastion"
-}
+  mock_outputs = {
+      security_group_id = ""
+  }
+
 #
 # aws_region: region in which organization resources will be created
 # 

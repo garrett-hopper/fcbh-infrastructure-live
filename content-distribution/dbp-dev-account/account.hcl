@@ -2,6 +2,6 @@
 # terragrunt.hcl configuration.
 locals {
   account_name   = "dbp-dev"
-  aws_account_id = "000000000000"
+  aws_account_id = "078432969830"
   aws_profile = "dbp-dev-admin"
 }

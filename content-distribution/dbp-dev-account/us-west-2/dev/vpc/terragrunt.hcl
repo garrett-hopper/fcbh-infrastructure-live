@@ -4,7 +4,7 @@
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
   source = "../../../../../../fcbh-infrastructure-modules//vpc"
-  # source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git?ref=master"
+  //source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//vpc?ref=v0.1.1"
 }
 
 #Include all settings from the root terragrunt.hcl file

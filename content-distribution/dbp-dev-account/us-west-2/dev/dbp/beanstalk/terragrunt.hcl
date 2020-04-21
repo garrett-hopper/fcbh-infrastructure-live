@@ -14,22 +14,45 @@ include {
 
 dependency "vpc" {
   config_path = "../../vpc"
+  mock_outputs = {
+    vpc_id = "temporary-dummy-id"
+    public_subnet_ids = []
+    private_subnet_ids = []
+    vpc_default_security_group_id = ""
+  }  
 }
 dependency "bastion" {
   config_path = "../../bastion"
+  mock_outputs = {
+      security_group_id = ""
+  }  
 }
 dependency "rds" {
   config_path = "../../rds"
+  mock_outputs = {
+      endpoint = ""
+      reader_endpoint = ""
+  }  
 }
 dependency "elasticache" {
   config_path = "../../elasticache"
+  mock_outputs = {
+      cluster_address = ""
+  }  
 }
 dependency "route53" {
   config_path = "../../route53"
+  mock_outputs = {
+      zone_id = ""
+  }    
 }
 dependency "certificate" {
   config_path = "../../certificate/dev.dbt.io"
+  mock_outputs = {
+      arn = ""
+  }    
 }
+
 # to copy an RDS snapshot between accounts: https://aws.amazon.com/premiumsupport/knowledge-center/rds-snapshots-share-account/
 inputs = {
   namespace                  = "dbp"

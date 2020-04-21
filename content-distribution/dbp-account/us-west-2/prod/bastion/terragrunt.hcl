@@ -11,10 +11,14 @@ terraform {
 include {
   path = find_in_parent_folders()
 }
+
 dependency "vpc" {
   config_path = "../vpc"
+  mock_outputs = {
+    vpc_id            = "temporary-dummy-id"
+    bastion_subnet_id = "subnet-id"
+  }
 }
-
 inputs = {
 
   namespace = "dbp"

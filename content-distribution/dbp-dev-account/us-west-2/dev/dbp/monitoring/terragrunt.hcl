@@ -4,7 +4,7 @@
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
   source = "../../../../../../../fcbh-infrastructure-modules//monitoring"
-  # source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git?ref=master"
+  # source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//monitoring?ref=master"
 }
 
 #Include all settings from the root terragrunt.hcl file
@@ -14,6 +14,9 @@ include {
 
 dependency "beanstalk" {
   config_path = "../beanstalk"
+  mock_outputs = {
+      beanstalk_health_alarm_sns_topic = ""
+  }    
 }
 inputs = {
   namespace         = "dbp"
@@ -21,6 +24,6 @@ inputs = {
   name              = "beanstalk"
   sns_topic_name    = dependency.beanstalk.outputs.beanstalk_health_alarm_sns_topic 
   slack_webhook_url = "https://hooks.slack.com/services/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"
-  slack_channel     = "faith-comes-by-he"
+  slack_channel     = "faith-comes-by-he-not"
   slack_username    = "aws"
 }

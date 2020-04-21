@@ -14,6 +14,10 @@ include {
 
 dependency "dbp-web-beanstalk" {
   config_path = "../beanstalk"
+  mock_outputs = {
+      elastic_beanstalk_application_name = "app"
+      elastic_beanstalk_environment_name = "env"
+  }  
 }
 
 # NOTE: The CodePipeline stage requires access to the GitHub repository containing the Beanstalk configuration. 
@@ -33,6 +37,7 @@ inputs = {
   repo_owner                         = "faithcomesbyhearing"
   repo_name                          = "dbp-web"
   branch                             = "develop"
+  force_destroy                      = true
   elastic_beanstalk_application_name = dependency.dbp-web-beanstalk.outputs.elastic_beanstalk_application_name
   elastic_beanstalk_environment_name = dependency.dbp-web-beanstalk.outputs.elastic_beanstalk_environment_name
 }

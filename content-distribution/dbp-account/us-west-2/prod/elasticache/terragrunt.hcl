@@ -14,8 +14,12 @@ include {
 
 dependency "vpc" {
   config_path = "../vpc"
+  mock_outputs = {
+    vpc_id = "temporary-dummy-id"
+    private_subnet_ids = []
+    vpc_default_security_group_id = ""
+  }
 }
-
 inputs = {
   namespace       = "dbp"
   stage           = ""
