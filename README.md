@@ -4,7 +4,7 @@
 
 ## Getting Started
 
-- install terragrunt  https://terragrunt.gruntwork.io/docs/getting-started/install/ 
+- install terragrunt  https://terragrunt.gruntwork.io/docs/getting-started/install/
 - install AWS CLI https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html
 - configure AWS profiles as needed https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html
   - dbp-admin
@@ -66,11 +66,41 @@ Terragrunt provides a thin wrapper over the terraform modules to manage some of 
 
 ## Workflow
 
-To create AWS resources using terraform, execute the following set of commands. Note that currently there is not a global command to create all AWS resources; instead, you must execute the following for each directory.
+### Tip: Common download directory
+
+By default, terragrunt caches resources in the current working directory, in directory. Since many resources are the same, this results in unneeded activity. A handy tip for working with multiple modules is to specify a single download directory. The easiest way is to execute the following:
+
+```bash
+export TERRAGRUNT_DOWNLOAD=<download-directory of your choice>
+```
+
+### Working with multiple modules
+
+Terragrunt provides a set of commands to operate over multiple modules. These commands end with "-all", for example "plan-all", "apply-all"
+These commands will iterate over subdirectories, executing the corresponding command whenever it finds a terragrunt.hcl file
+
+As an example of how to use these commands, the following will create all AWS resources in the dbp-dev acccount from scratch (assuming AWS profiles and required permissions have been associated)
+
+```bash
+unset AWS_PROFILE
+export TERRAGRUNT_DOWNLOAD=<download-directory of your choice>
+git clone https://github.com/faithcomesbyhearing/fcbh-infrastructure-live.git
+cd fcbh-instrastructure-live
+cd content-distribution/dbp-dev-account
+terragrunt plan-all
+terragrunt apply-all --terragrunt-non-interactive
+```
+
+In addition to the initial creation of resources, executing terragrunt-plan-all over an account will provide insight regarding any changes made to the resources outside of terraform control (i.e. via the console)
+
+[further reading](https://terragrunt.gruntwork.io/docs/features/execute-terraform-commands-on-multiple-modules-at-once/)
+
+### Updating a single module
+
+In many cases, only small changes to individual resources are required.  In these cases, you can navigate to the directory containing the terragrunt.hcl file and execute terragrunt plan or apply.
 
 ```bash
 cd <directory containing terragrunt.hcl file>
-terragrunt init
 terragrunt plan
 terragrunt apply (answer yes if the resources look correct)
 ```
