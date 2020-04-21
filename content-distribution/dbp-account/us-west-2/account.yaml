@@ -1,4 +1,0 @@
-# These variables apply to this account. They are automatically pulled in using yamldecode and merged into
-# the inputs of the root terragrunt.hcl file.
-#account_id : "596282610570"
-aws_profile: "dbp-admin"
