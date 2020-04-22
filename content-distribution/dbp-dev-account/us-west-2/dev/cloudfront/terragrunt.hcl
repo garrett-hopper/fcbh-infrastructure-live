@@ -3,8 +3,7 @@
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "../../../../../../fcbh-infrastructure-modules//cloudfront"
-  # source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//cloudfront?ref=master"
+  source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//cloudfront?ref=v0.1.2"
 }
 
 #Include all settings from the root terragrunt.hcl file
@@ -33,5 +32,4 @@ inputs = {
   cors_allowed_origins     = ["*.dev.dbt.io"]
   viewer_protocol_policy   = "allow-all"
   origin_force_destroy     = false
-  //origin_bucket            = "dbp-dev-cloudfront-origin"
 }
