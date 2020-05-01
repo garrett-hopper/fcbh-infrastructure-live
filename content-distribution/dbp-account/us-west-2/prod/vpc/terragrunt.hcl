@@ -1,4 +1,4 @@
-# member-account: dbp (596282610570)
+# member-account: dbp
 
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
@@ -15,7 +15,7 @@ inputs = {
 
   namespace = "dbp"
   stage     = ""
-  name      = "api"
+  name      = "vpc"
 
   cidr_block = "172.20.0.0/16"
 
