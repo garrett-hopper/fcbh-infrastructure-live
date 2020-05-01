@@ -3,8 +3,7 @@
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "../../../../../../fcbh-infrastructure-modules//data-storage/rds"
-  # source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git?ref=master"
+  source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//rds?ref=v0.1.2"
 }
 
 #Include all settings from the root terragrunt.hcl file
@@ -38,11 +37,11 @@ dependency "bastion" {
 inputs = {
   namespace           = "dbp"
   stage               = ""
-  name                = "api"
+  name                = "rds"
   vpc_id              = dependency.vpc.outputs.vpc_id
   subnets             = dependency.vpc.outputs.private_subnet_ids
   security_groups     = [dependency.vpc.outputs.vpc_default_security_group_id, dependency.bastion.outputs.security_group_id]
-  instance_type       = "db.t3.small"
+  instance_type       = "db.t3.medium"
   db_name             = "dbp_dev"
   snapshot_identifier = "pre-terraform-snapshot"
   autoscaling_enabled        = true

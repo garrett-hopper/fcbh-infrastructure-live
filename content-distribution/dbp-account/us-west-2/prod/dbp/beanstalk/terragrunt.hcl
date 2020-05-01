@@ -3,8 +3,7 @@
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "../../../../../../../fcbh-infrastructure-modules//elastic-beanstalk"
-  # source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git?ref=master"
+  source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//beanstalk?ref=v0.1.2"
 }
 
 #Include all settings from the root terragrunt.hcl file
@@ -27,13 +26,13 @@ dependency "bastion" {
       security_group_id = ""
   }  
 }
-dependency "rds" {
-  config_path = "../../rds"
-  mock_outputs = {
-      endpoint = ""
-      reader_endpoint = ""
-  }  
-}
+#dependency "rds" {
+#  config_path = "../../rds"
+#  mock_outputs = {
+#      endpoint = ""
+#      reader_endpoint = ""
+#  }  
+#}
 dependency "elasticache" {
   config_path = "../../elasticache"
   mock_outputs = {
@@ -67,18 +66,17 @@ inputs = {
   allowed_security_groups    = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
   additional_security_groups = [dependency.bastion.outputs.security_group_id]
   keypair                    = "dbp"
-
-  description                  = "DBP Elastic Beanstalk "
+description                  = "DBP Elastic Beanstalk "
   dns_zone_id                  = dependency.route53.outputs.zone_id
   loadbalancer_certificate_arn = dependency.certificate.outputs.arn
-  instance_type                = "t3.small" # change to t3.medium when closer to production date
+  instance_type                = "t3.medium"
 
   environment_description = "DBP Production environment"
 
-  healthcheck_url    = "/"
+  healthcheck_url    = "/status"
   enable_stream_logs = true
 
-  solution_stack_name = "64bit Amazon Linux 2018.03 v2.9.3 running PHP 7.2"
+  solution_stack_name = "64bit Amazon Linux 2018.03 v2.9.4 running PHP 7.2"
 
   env_vars = {
     "APP_ENV"            = "prod"
@@ -86,9 +84,9 @@ inputs = {
     "API_URL"            = "https://4.dbt.io/api"
     "APP_URL_PODCAST"    = "https://4.dbt.io"
     "APP_DEBUG"          = "0"
-    "DBP_HOST"           = dependency.rds.outputs.reader_endpoint
+    "DBP_HOST"           = "prod-cluster.cluster-ro-cp6dghsmdxd5.us-west-2.rds.amazonaws.com"
     "DBP_USERNAME"       = "api_node_dbp"
-    "DBP_USERS_HOST"     = dependency.rds.outputs.endpoint
+    "DBP_USERS_HOST"     = "prod-cluster.cluster-cp6dghsmdxd5.us-west-2.rds.amazonaws.com"
     "DBP_USERS_DATABASE" = "dbp_users"
     "DBP_USERS_USERNAME" = "api_node_dbp"
     "MEMCACHE_HOST"      = dependency.elasticache.outputs.cluster_configuration_endpoint
