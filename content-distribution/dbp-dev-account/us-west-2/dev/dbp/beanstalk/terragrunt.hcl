@@ -92,7 +92,7 @@ inputs = {
   updating_min_in_service = 0
   updating_max_batch      = 1
 
-  healthcheck_url  = "/"
+  healthcheck_url  = "/status"
   application_port = 80
 
   solution_stack_name = "64bit Amazon Linux 2018.03 v2.9.3 running PHP 7.2"
