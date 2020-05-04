@@ -12,4 +12,3 @@
 **/.terragrunt-cache/*
 **/.terragrunt-global-cache/*
 fcbh-infrastructure.code-workspace
-content-distribution/bibleis-account/us-west-2/prod/bibleis-web/bastion/bibleis-dev.pem
