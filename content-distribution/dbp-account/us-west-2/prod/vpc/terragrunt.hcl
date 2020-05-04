@@ -17,6 +17,6 @@ inputs = {
   stage     = ""
   name      = "vpc"
 
-  cidr_block = "172.20.0.0/16"
+  cidr_block = "172.18.0.0/16"
 
 }
