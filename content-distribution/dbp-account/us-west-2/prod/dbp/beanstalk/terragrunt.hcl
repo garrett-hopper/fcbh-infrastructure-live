@@ -52,32 +52,31 @@ dependency "certificate" {
   }
 }
 
-
 # to copy an RDS snapshot between accounts: https://aws.amazon.com/premiumsupport/knowledge-center/rds-snapshots-share-account/
 inputs = {
-  namespace = "dbp"
-  stage     = ""
-  name      = "beanstalk"
+  namespace                  = "dbp"
+  stage                      = ""
+  name                       = "beanstalk"
 
-  application_description      = "dbp"
-  vpc_id                       = dependency.vpc.outputs.vpc_id
-  public_subnets               = dependency.vpc.outputs.public_subnet_ids
-  private_subnets              = dependency.vpc.outputs.private_subnet_ids
-  allowed_security_groups      = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
-  additional_security_groups   = [dependency.bastion.outputs.security_group_id]
-  keypair                      = "dbp"
-  description                  = "DBP Elastic Beanstalk "
-  autoscale_max                = 8
-  dns_zone_id                  = dependency.route53.outputs.zone_id
+  application_description    = "dbp"
+  vpc_id                     = dependency.vpc.outputs.vpc_id
+  public_subnets             = dependency.vpc.outputs.public_subnet_ids
+  private_subnets            = dependency.vpc.outputs.private_subnet_ids
+  allowed_security_groups    = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
+  additional_security_groups = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
+  keypair                    = "dbp"
+  description                = "DBP Elastic Beanstalk "
+  autoscale_max              = 8
+  dns_zone_id                = dependency.route53.outputs.zone_id
   loadbalancer_certificate_arn = dependency.certificate.outputs.arn
-  instance_type                = "t3.medium"
+  instance_type              = "t3.medium"
 
-  environment_description = "DBP Production environment"
+  environment_description    = "DBP Production Beanstalk"
 
-  healthcheck_url    = "/status"
-  enable_stream_logs = true
+  healthcheck_url            = "/status"
+  enable_stream_logs         = true
 
-  solution_stack_name = "64bit Amazon Linux 2018.03 v2.9.4 running PHP 7.2"
+  solution_stack_name        = "64bit Amazon Linux 2018.03 v2.9.4 running PHP 7.2"
 
   env_vars = {
     "APP_ENV"            = "prod"
@@ -86,10 +85,11 @@ inputs = {
     "APP_URL_PODCAST"    = "https://4.dbt.io"
     "APP_DEBUG"          = "0"
     "DBP_HOST"           = "prod-cluster.cluster-ro-cp6dghsmdxd5.us-west-2.rds.amazonaws.com"
+    "DBP_DATABASE"       = "dbp_200309"
     "DBP_USERNAME"       = "api_node_dbp"
     "DBP_USERS_HOST"     = "prod-cluster.cluster-cp6dghsmdxd5.us-west-2.rds.amazonaws.com"
     "DBP_USERS_DATABASE" = "dbp_users"
     "DBP_USERS_USERNAME" = "api_node_dbp"
-    "MEMCACHE_HOST"      = dependency.elasticache.outputs.cluster_configuration_endpoint
+    "MEMCACHED_HOST"     = dependency.elasticache.outputs.cluster_address
   }
 }
