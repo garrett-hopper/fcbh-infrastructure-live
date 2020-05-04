@@ -3,7 +3,7 @@
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//beanstalk?ref=v0.1.3"
+  source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//elastic-beanstalk?ref=v0.1.4"
 }
 
 #Include all settings from the root terragrunt.hcl file
@@ -14,17 +14,17 @@ include {
 dependency "vpc" {
   config_path = "../../vpc"
   mock_outputs = {
-    vpc_id = "temporary-dummy-id"
-    public_subnet_ids = []
-    private_subnet_ids = []
+    vpc_id                        = "temporary-dummy-id"
+    public_subnet_ids             = []
+    private_subnet_ids            = []
     vpc_default_security_group_id = ""
-  }  
+  }
 }
 dependency "bastion" {
   config_path = "../../bastion"
   mock_outputs = {
-      security_group_id = ""
-  }  
+    security_group_id = ""
+  }
 }
 #dependency "rds" {
 #  config_path = "../../rds"
@@ -36,20 +36,20 @@ dependency "bastion" {
 dependency "elasticache" {
   config_path = "../../elasticache"
   mock_outputs = {
-      cluster_address = ""
-  }  
+    cluster_address = ""
+  }
 }
 dependency "route53" {
   config_path = "../../route53"
   mock_outputs = {
-      zone_id = ""
-  }    
+    zone_id = ""
+  }
 }
 dependency "certificate" {
   config_path = "../../certificate/dbt.io"
   mock_outputs = {
-      arn = ""
-  }    
+    arn = ""
+  }
 }
 
 
@@ -59,14 +59,15 @@ inputs = {
   stage     = ""
   name      = "beanstalk"
 
-  application_description    = "dbp"
-  vpc_id                     = dependency.vpc.outputs.vpc_id
-  public_subnets             = dependency.vpc.outputs.public_subnet_ids
-  private_subnets            = dependency.vpc.outputs.private_subnet_ids
-  allowed_security_groups    = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
-  additional_security_groups = [dependency.bastion.outputs.security_group_id]
-  keypair                    = "dbp"
-description                  = "DBP Elastic Beanstalk "
+  application_description      = "dbp"
+  vpc_id                       = dependency.vpc.outputs.vpc_id
+  public_subnets               = dependency.vpc.outputs.public_subnet_ids
+  private_subnets              = dependency.vpc.outputs.private_subnet_ids
+  allowed_security_groups      = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
+  additional_security_groups   = [dependency.bastion.outputs.security_group_id]
+  keypair                      = "dbp"
+  description                  = "DBP Elastic Beanstalk "
+  autoscale_max                = 8
   dns_zone_id                  = dependency.route53.outputs.zone_id
   loadbalancer_certificate_arn = dependency.certificate.outputs.arn
   instance_type                = "t3.medium"
