@@ -77,16 +77,6 @@ inputs = {
   root_volume_size           = 8
   root_volume_type           = "gp2"
 
-  autoscale_min              = 1
-  autoscale_max              = 2
-  autoscale_measure_name     = "CPUUtilization"
-  autoscale_statistic        = "Average"
-  autoscale_unit             = "Percent"
-  autoscale_lower_bound      = 20
-  autoscale_lower_increment  = -1
-  autoscale_upper_bound      = 80
-  autoscale_upper_increment  = 1
-
   rolling_update_enabled     = true
   rolling_update_type        = "Health"
   updating_min_in_service    = 0
@@ -98,9 +88,6 @@ inputs = {
   solution_stack_name        = "64bit Amazon Linux 2018.03 v2.9.3 running PHP 7.2"
 
   // https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
-  additional_settings = [
-
-  ]
 
   env_vars = {
     "APP_ENV"            = "dev"
