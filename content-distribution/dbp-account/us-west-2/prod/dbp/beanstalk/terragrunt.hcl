@@ -80,12 +80,12 @@ inputs = {
 
   env_vars = {
     "APP_ENV"            = "prod"
-    "APP_URL"            = "https://4.dbt.io"
-    "API_URL"            = "https://4.dbt.io/api"
-    "APP_URL_PODCAST"    = "https://4.dbt.io"
+    "APP_URL"            = "https://b4.dbt.io"
+    "API_URL"            = "https://b4.dbt.io/api"
+    "APP_URL_PODCAST"    = "https://b4.dbt.io"
     "APP_DEBUG"          = "0"
     "DBP_HOST"           = "prod-cluster.cluster-ro-cp6dghsmdxd5.us-west-2.rds.amazonaws.com"
-    "DBP_DATABASE"       = "dbp_200309"
+    "DBP_DATABASE"       = "dbp_200430"
     "DBP_USERNAME"       = "api_node_dbp"
     "DBP_USERS_HOST"     = "prod-cluster.cluster-cp6dghsmdxd5.us-west-2.rds.amazonaws.com"
     "DBP_USERS_DATABASE" = "dbp_users"
