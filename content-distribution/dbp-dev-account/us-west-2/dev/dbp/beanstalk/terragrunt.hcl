@@ -102,5 +102,6 @@ inputs = {
     "DBP_USERS_DATABASE" = "dbp_users"
     "DBP_USERS_USERNAME" = "api_node_dbp"
     "MEMCACHED_HOST"     = dependency.elasticache.outputs.cluster_address
+    "NEW_RELIC_APP_NAME" = "DBP4 DEV"
   }
 }

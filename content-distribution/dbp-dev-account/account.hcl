@@ -3,5 +3,5 @@
 locals {
   account_name   = "dbp-dev"
   aws_account_id = "078432969830"
-  aws_profile = "dbp-dev-admin"
+  aws_profile = "dbp-dev"
 }
