@@ -76,9 +76,11 @@ inputs = {
   healthcheck_url            = "/status"
   enable_stream_logs         = true
 
-  solution_stack_name        = "64bit Amazon Linux 2018.03 v2.9.4 running PHP 7.2"
+  solution_stack_name        = "64bit Amazon Linux 2018.03 v2.9.6 running PHP 7.2"
 
   env_vars = {
+    "BEANSTALK_BUCKET"    = "elasticbeanstalk-us-west-2-596282610570"
+    "S3_CONFIG_LOC"      = "https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-596282610570/dbp"    
     "APP_ENV"            = "prod"
     "APP_URL"            = "https://b4.dbt.io"
     "API_URL"            = "https://b4.dbt.io/api"
