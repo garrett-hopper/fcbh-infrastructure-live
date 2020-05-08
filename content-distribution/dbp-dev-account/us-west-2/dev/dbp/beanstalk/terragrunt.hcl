@@ -85,11 +85,13 @@ inputs = {
   healthcheck_url            = "/status"
   application_port           = 80
 
-  solution_stack_name        = "64bit Amazon Linux 2018.03 v2.9.3 running PHP 7.2"
+  solution_stack_name        = "64bit Amazon Linux 2018.03 v2.9.6 running PHP 7.2"
 
   // https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
 
   env_vars = {
+    "BEANSTALK_BUCKET"    = "elasticbeanstalk-us-west-2-078432969830"
+    "S3_CONFIG_LOC"      = "https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-078432969830/dbp"
     "APP_ENV"            = "dev"
     "APP_URL"            = "https://dev.dbt.io"
     "API_URL"            = "https://dev.dbt.io/api"
