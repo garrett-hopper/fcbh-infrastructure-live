@@ -14,15 +14,15 @@ include {
 dependency "vpc" {
   config_path = "../vpc"
   mock_outputs = {
-    vpc_id = "temporary-dummy-id"
-    private_subnet_ids = []
+    vpc_id                        = "temporary-dummy-id"
+    private_subnet_ids            = []
     vpc_default_security_group_id = ""
-  }  
+  }
 }
 dependency "bastion" {
   config_path = "../bastion"
   mock_outputs = {
-      security_group_id = ""
+    security_group_id = ""
   }
 }
 #
@@ -41,11 +41,12 @@ inputs = {
   vpc_id                     = dependency.vpc.outputs.vpc_id
   subnets                    = dependency.vpc.outputs.private_subnet_ids
   security_groups            = [dependency.vpc.outputs.vpc_default_security_group_id, dependency.bastion.outputs.security_group_id]
-  instance_type              = "db.t3.small"
+  instance_type              = "db.r3.large"
+  engine_version             = "5.6.mysql_aurora.1.22.1"
   db_name                    = "dbp_dev"
   snapshot_identifier        = "dev-pre-terraform"
   autoscaling_enabled        = true
   autoscaling_target_metrics = "RDSReaderAverageDatabaseConnections"
-  autoscaling_target_value   = 70 # tied to instance_type. db.t3.small max connections is 90, so scale up before that target is hit
+  autoscaling_target_value   = 70 # tied to instance_type. db.t3.medium max connections is 90, so scale up before that target is hit. https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Managing.Performance.html
   autoscaling_min_capacity   = 2  # note: this compensates for a bug in the cloudposse module. In addition to read _replica count, add 1 for the writer. Reference: https://github.com/cloudposse/terraform-aws-rds-cluster/issues/63
 }
