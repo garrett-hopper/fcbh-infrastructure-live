@@ -66,6 +66,7 @@ inputs = {
   additional_security_groups = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
   keypair                    = "dbp"
   description                = "DBP Elastic Beanstalk "
+  autoscale_min              = 3
   autoscale_max              = 8
   dns_zone_id                = dependency.route53.outputs.zone_id
   loadbalancer_certificate_arn = dependency.certificate.outputs.arn
