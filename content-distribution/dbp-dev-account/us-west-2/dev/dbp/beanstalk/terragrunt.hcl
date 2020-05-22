@@ -3,7 +3,7 @@
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//elastic-beanstalk?ref=v0.1.2"
+  source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//elastic-beanstalk?ref=v0.1.5"
 }
 
 #Include all settings from the root terragrunt.hcl file
@@ -29,9 +29,9 @@ dependency "bastion" {
 dependency "rds" {
   config_path = "../../rds"
   mock_outputs = {
-    endpoint = ""
+    endpoint        = ""
     reader_endpoint = ""
-  }  
+  }
 }
 dependency "elasticache" {
   config_path = "../../elasticache"
@@ -54,43 +54,43 @@ dependency "certificate" {
 
 # to copy an RDS snapshot between accounts: https://aws.amazon.com/premiumsupport/knowledge-center/rds-snapshots-share-account/
 inputs = {
-  namespace                  = "dbp"
-  stage                      = "dev"
-  name                       = "beanstalk"
-  
-  application_description    = "dbp"
-  vpc_id                     = dependency.vpc.outputs.vpc_id
-  public_subnets             = dependency.vpc.outputs.public_subnet_ids
-  private_subnets            = dependency.vpc.outputs.private_subnet_ids
-  allowed_security_groups    = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
-  additional_security_groups = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
-  keypair                    = "dbp-dev"
-  description                = "DBP Elastic Beanstalk"
+  namespace = "dbp"
+  stage     = "dev"
+  name      = "beanstalk"
 
-  dns_zone_id                = dependency.route53.outputs.zone_id
+  application_description      = "dbp"
+  vpc_id                       = dependency.vpc.outputs.vpc_id
+  public_subnets               = dependency.vpc.outputs.public_subnet_ids
+  private_subnets              = dependency.vpc.outputs.private_subnet_ids
+  allowed_security_groups      = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
+  additional_security_groups   = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
+  keypair                      = "dbp-dev"
+  description                  = "DBP Elastic Beanstalk"
+  autoscale_min                = 2
+  dns_zone_id                  = dependency.route53.outputs.zone_id
   loadbalancer_certificate_arn = dependency.certificate.outputs.arn
-  instance_type              = "t3.small"
+  instance_type                = "t3.small"
 
-  environment_description    = "DBP Development environment"
-  version_label              = ""
-  force_destroy              = true
-  root_volume_size           = 8
-  root_volume_type           = "gp2"
+  environment_description = "DBP Development environment"
+  version_label           = ""
+  force_destroy           = true
+  root_volume_size        = 8
+  root_volume_type        = "gp2"
 
-  rolling_update_enabled     = true
-  rolling_update_type        = "Health"
-  updating_min_in_service    = 0
-  updating_max_batch         = 1
+  rolling_update_enabled  = true
+  rolling_update_type     = "Health"
+  updating_min_in_service = 0
+  updating_max_batch      = 1
 
-  healthcheck_url            = "/status"
-  application_port           = 80
+  healthcheck_url  = "/status"
+  application_port = 80
 
-  solution_stack_name        = "64bit Amazon Linux 2018.03 v2.9.6 running PHP 7.2"
+  solution_stack_name = "64bit Amazon Linux 2018.03 v2.9.6 running PHP 7.2"
 
   // https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
 
   env_vars = {
-    "BEANSTALK_BUCKET"    = "elasticbeanstalk-us-west-2-078432969830"
+    "BEANSTALK_BUCKET"   = "elasticbeanstalk-us-west-2-078432969830"
     "S3_CONFIG_LOC"      = "https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-078432969830/dbp"
     "APP_ENV"            = "dev"
     "APP_URL"            = "https://dev.dbt.io"
