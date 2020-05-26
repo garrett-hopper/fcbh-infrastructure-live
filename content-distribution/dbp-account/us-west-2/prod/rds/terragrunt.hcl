@@ -24,7 +24,7 @@ dependency "bastion" {
   mock_outputs = {
       security_group_id = ""
   }
-
+}
 #
 # aws_region: region in which organization resources will be created
 # 
@@ -34,6 +34,7 @@ dependency "bastion" {
 #Before executing, create a snapshot in DBS and move it to DBP. Name the snapshot "pre-terraform-snapshot"
 # to copy an RDS snapshot between accounts: https://aws.amazon.com/premiumsupport/knowledge-center/rds-snapshots-share-account/
 #
+# Note: db.r3.large or greater is needed to support Performance Insights
 inputs = {
   namespace           = "dbp"
   stage               = ""
@@ -41,11 +42,11 @@ inputs = {
   vpc_id              = dependency.vpc.outputs.vpc_id
   subnets             = dependency.vpc.outputs.private_subnet_ids
   security_groups     = [dependency.vpc.outputs.vpc_default_security_group_id, dependency.bastion.outputs.security_group_id]
-  instance_type       = "db.t3.medium"
+  instance_type       = "db.r3.large"
   db_name             = "dbp_dev"
   snapshot_identifier = "pre-terraform-snapshot"
   autoscaling_enabled        = true
   autoscaling_target_metrics = "RDSReaderAverageDatabaseConnections"
-  autoscaling_target_value   = 70 # tied to instance_type. db.t3.small max connections is 90, so scale up before that target is hit
+ autoscaling_target_value   = 70 # tied to instance_type. db.t3.small max connections is 90, so scale up before that target is hit
   autoscaling_min_capacity   = 2  # note: this compensates for a bug in the cloudposse module. In addition to read _replica count, add 1 for the writer. Reference: https://github.com/cloudposse/terraform-aws-rds-cluster/issues/63  
 }
