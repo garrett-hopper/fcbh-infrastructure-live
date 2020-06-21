@@ -23,6 +23,7 @@ inputs = {
   namespace    = "dbp"
   stage        = "dev"
   name         = "api"
+  instance_type = "t3.nano"  
   vpc_id       = dependency.vpc.outputs.vpc_id
   control_cidr = ["140.82.163.2/32", "73.26.9.216/32", "45.58.38.254/32", "136.37.119.153/32"]
   key_name     = "dbp-dev"
