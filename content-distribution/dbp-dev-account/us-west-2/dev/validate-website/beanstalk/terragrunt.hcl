@@ -3,7 +3,7 @@
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//elastic-beanstalk?ref=v0.1.5"
+  source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//elastic-beanstalk?ref=v0.1.6"
 }
 
 #Include all settings from the root terragrunt.hcl file
@@ -62,7 +62,7 @@ inputs = {
   updating_min_in_service = 0
   updating_max_batch      = 1
 
-  healthcheck_url  = "/"
+  healthcheck_url  = "/hello.php"
   application_port = 80
 
   solution_stack_name = "64bit Amazon Linux 2018.03 v2.9.6 running PHP 7.2"
