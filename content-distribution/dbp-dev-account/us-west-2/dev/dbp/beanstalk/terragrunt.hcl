@@ -3,7 +3,7 @@
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//elastic-beanstalk?ref=v0.1.5"
+  source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//elastic-beanstalk?ref=v0.1.6"
 }
 
 #Include all settings from the root terragrunt.hcl file
@@ -81,11 +81,13 @@ inputs = {
   rolling_update_type     = "Health"
   updating_min_in_service = 0
   updating_max_batch      = 1
+  preferred_start_time    = "Sun:18:00"
 
   healthcheck_url  = "/status"
   application_port = 80
 
-  solution_stack_name = "64bit Amazon Linux 2018.03 v2.9.6 running PHP 7.2"
+  solution_stack_name = "64bit Amazon Linux 2018.03 v2.9.7 running PHP 7.2"
+  enable_stream_logs  = true
 
   // https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
 
@@ -98,7 +100,7 @@ inputs = {
     "APP_URL_PODCAST"    = "https://dev.dbt.io"
     "APP_DEBUG"          = "1"
     "DBP_HOST"           = dependency.rds.outputs.reader_endpoint
-    "DBP_DATABASE"       = "dbp_200309"
+    "DBP_DATABASE"       = "dbp_200430"
     "DBP_USERNAME"       = "api_node_dbp"
     "DBP_USERS_HOST"     = dependency.rds.outputs.endpoint
     "DBP_USERS_DATABASE" = "dbp_users"

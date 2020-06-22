@@ -3,7 +3,7 @@
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//elastic-beanstalk?ref=v0.1.5"
+  source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//elastic-beanstalk?ref=v0.1.6"
 }
 
 #Include all settings from the root terragrunt.hcl file
@@ -66,8 +66,10 @@ inputs = {
   additional_security_groups = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
   keypair                    = "dbp"
   description                = "DBP Elastic Beanstalk "
+  preferred_start_time       = "Mon:18:00"  
   autoscale_min              = 3
   autoscale_max              = 8
+  autoscale_lower_bound      = 40 # scale in when CPU < 40% (referencing default values for other settings)
   dns_zone_id                = dependency.route53.outputs.zone_id
   loadbalancer_certificate_arn = dependency.certificate.outputs.arn
   instance_type              = "t3.medium"
