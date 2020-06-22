@@ -69,8 +69,4 @@ inputs = {
 
   // https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
 
-  env_vars = {
-    "DBP_HOST"           = "dbp.cluster-ro-cyxul5641iji.us-west-2.rds.amazonaws.com"
-#    "DBP_HOST"           = dependency.rds.outputs.reader_endpoint
-  }
 }
