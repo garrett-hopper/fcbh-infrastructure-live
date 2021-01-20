@@ -16,5 +16,7 @@ inputs = {
   namespace = "dbp"
   stage     = "dev"
   name      = "api"
+  parent_zone_record_enabled = false 
+  parent_zone_name = "dbt.io"  
   zone_name = "dev.dbt.io"
 }
