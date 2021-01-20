@@ -3,8 +3,7 @@
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "../../../../../../../fcbh-infrastructure-modules//route53"
-  #source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git?ref=master"
+  source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//route53?ref=v0.1.7"
 }
 
 # Include all settings from the root terragrunt.hcl file
@@ -14,8 +13,20 @@ include {
 
 inputs = {
 
+  namespace = "analytics"
+  stage     = "prod"
+  name      = "splunk"
+  parent_zone_record_enabled = false 
+  parent_zone_name = "fcbh.org"
+  zone_name = "splunk.fcbh.org"
+}
+
+inputs = {
+
   namespace = "bibleis"
   stage     = ""
   name      = "web"
-  zone_name = "bible.is" 
+  parent_zone_record_enabled = false 
+  parent_zone_name = "bible.is"
+  zone_name = "live.bible.is"
 }
