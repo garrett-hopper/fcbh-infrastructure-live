@@ -11,9 +11,6 @@ include {
   path = find_in_parent_folders()
 }
 
-dependency "route53" {
-  config_path = "../route53"
-}
 inputs = {
   namespace                   = "analytics"
   stage                       = ""
