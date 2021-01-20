@@ -11,11 +11,12 @@ include {
   path = find_in_parent_folders()
 }
 
-inputs = {
-  aws_region                = "us-east-1" # required for CloudFront certificate
-  namespace                 = "dbp"
-  stage                     = ""
-  name                      = "cloudfront"
-  domain_name               = "dbt.io"
-  subject_alternative_names = "4.dbt.io"
-}
+# 1/20/2021 - currently not implemented
+# inputs = {
+#   aws_region                = "us-east-1" # required for CloudFront certificate
+#   namespace                 = "dbp"
+#   stage                     = ""
+#   name                      = "cloudfront"
+#   domain_name               = "dbt.io"
+#   subject_alternative_names = ["4.dbt.io"]
+# }
