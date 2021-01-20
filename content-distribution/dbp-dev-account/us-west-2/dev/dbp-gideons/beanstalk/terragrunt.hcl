@@ -46,7 +46,7 @@ dependency "route53" {
   }
 }
 dependency "certificate" {
-  config_path = "../../certificate/earlyaccess.dev.dbt.io"
+  config_path = "../../certificate/gideons.dev.dbt.io"
   mock_outputs = {
     arn = ""
   }
@@ -55,7 +55,7 @@ dependency "certificate" {
 # to copy an RDS snapshot between accounts: https://aws.amazon.com/premiumsupport/knowledge-center/rds-snapshots-share-account/
 inputs = {
   namespace = "dbp"
-  stage     = "earlyaccess"
+  stage     = "gideons"
   name      = "beanstalk"
 
   application_description      = "dbp"
@@ -65,13 +65,13 @@ inputs = {
   allowed_security_groups      = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
   additional_security_groups   = [dependency.bastion.outputs.security_group_id, dependency.vpc.outputs.vpc_default_security_group_id]
   keypair                      = "dbp-dev"
-  description                  = "DBP Early Access Beanstalk"
+  description                  = "DBP Beanstalk for Gideons integration"
   autoscale_min                = 2
   dns_zone_id                  = dependency.route53.outputs.zone_id
   loadbalancer_certificate_arn = dependency.certificate.outputs.arn
   instance_type                = "t3.small"
 
-  environment_description = "DBP Early Access environment"
+  environment_description = "DBP environment for Gideons integration"
   version_label           = ""
   force_destroy           = true
   root_volume_size        = 8
@@ -93,11 +93,11 @@ inputs = {
 
   env_vars = {
     "BEANSTALK_BUCKET"   = "elasticbeanstalk-us-west-2-078432969830"
-    "S3_CONFIG_LOC"      = "https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-078432969830/dbp-early-access"
+    "S3_CONFIG_LOC"      = "https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-078432969830/dbp-gideons"
     "APP_ENV"            = "dev"
-    "APP_URL"            = "https://earlyaccess.dev.dbt.io"
-    "API_URL"            = "https://earlyaccess.dev.dbt.io/api"
-    "APP_URL_PODCAST"    = "https://earlyaccess.dev.dbt.io"
+    "APP_URL"            = "https://gideons.dev.dbt.io"
+    "API_URL"            = "https://gideons.dev.dbt.io/api"
+    "APP_URL_PODCAST"    = "https://gideons.dev.dbt.io"
     "APP_DEBUG"          = "1"
     "DBP_HOST"           = dependency.rds.outputs.reader_endpoint
     "DBP_DATABASE"       = "dbp_201014"
@@ -106,6 +106,6 @@ inputs = {
     "DBP_USERS_DATABASE" = "dbp_users"
     "DBP_USERS_USERNAME" = "api_node_dbp"
     "MEMCACHED_HOST"     = dependency.elasticache.outputs.cluster_address
-    "NEW_RELIC_APP_NAME" = "DBP4 EA"
+    "NEW_RELIC_APP_NAME" = "DBP4 Gideons integration"
   }
 }

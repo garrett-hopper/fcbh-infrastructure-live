@@ -14,8 +14,8 @@ include {
 inputs = {
 
   namespace = "dbp"
-  stage     = "earlyaccess"
+  stage     = "gideons"
   name      = "api"
-  zone_name = "earlyaccess.dev.dbt.io"
-  parent_zone_name = "dev.dbt.io"
+  zone_name = "gideons.dev.dbt.io"
+  parent_zone_name = "dev.dbt.io"  
 }
