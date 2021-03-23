@@ -3,7 +3,7 @@
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//rds?ref=v0.1.6"
+  source = "git::https://github.com/faithcomesbyhearing/fcbh-infrastructure-modules.git//rds?ref=v0.1.7"
 }
 
 #Include all settings from the root terragrunt.hcl file
@@ -25,6 +25,7 @@ dependency "bastion" {
       security_group_id = ""
   }
 }
+# NOTE: this is not currently being used. The DBP RDS is in Fostermade
 #
 # aws_region: region in which organization resources will be created
 # 
@@ -43,10 +44,10 @@ inputs = {
   subnets             = dependency.vpc.outputs.private_subnet_ids
   security_groups     = [dependency.vpc.outputs.vpc_default_security_group_id, dependency.bastion.outputs.security_group_id]
   instance_type       = "db.r3.large"
-  db_name             = "dbp_dev"
+  db_name             = "dbp_210117"
   snapshot_identifier = "pre-terraform-snapshot"
   autoscaling_enabled        = true
   autoscaling_target_metrics = "RDSReaderAverageDatabaseConnections"
- autoscaling_target_value   = 70 # tied to instance_type. db.t3.small max connections is 90, so scale up before that target is hit
+  autoscaling_target_value   = 70 # tied to instance_type. db.t3.small max connections is 90, so scale up before that target is hit
   autoscaling_min_capacity   = 2  # note: this compensates for a bug in the cloudposse module. In addition to read _replica count, add 1 for the writer. Reference: https://github.com/cloudposse/terraform-aws-rds-cluster/issues/63  
 }
