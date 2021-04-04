@@ -31,6 +31,12 @@ dependency "certificate_bible_brain_org" {
     arn = ""
   }
 }
+dependency "certificate_digitalbibleplatform_org" {
+  config_path = "../certificate/digitalbibleplatform.org"
+  mock_outputs = {
+    arn = ""
+  }
+}
 inputs = {
   namespace                   = "dbp"
   stage                       = ""
@@ -43,5 +49,5 @@ inputs = {
   subnets         = dependency.vpc.outputs.public_subnet_ids
   host_header_values = ["biblebrain.com", "biblebrain.org"]
   certificate_arn = dependency.certificate_bible_brain_com.outputs.arn
-  certificate_arn2 = dependency.certificate_bible_brain_org.outputs.arn
+  additional_certificates = [dependency.certificate_bible_brain_org.outputs.arn,dependency.certificate_digitalbibleplatform_org.outputs.arn ]
 }
