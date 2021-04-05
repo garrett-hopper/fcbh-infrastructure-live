@@ -45,8 +45,10 @@ inputs = {
   elb_access_cidr = ["140.82.163.2/32", "73.26.9.216/32", "45.58.38.254/32", "136.37.119.235/32", "73.242.135.160/32"]
   prod_search_head_instance_type = "c5.2xlarge"
   # indexer_instance_type = "c5.xlarge"
-  forwarder_instance_type = "t3.small"
+  forwarder_instance_type = "t3.medium"
+  forwarder_iam_instance_profile = "Ec2SplunkInput"
   certificate_arn = dependency.certificate.outputs.arn
   route53_zone_id = dependency.route53.outputs.zone_id
+  splunk_license_server_cidr = ["34.199.156.159/32"]
   peer_cidr_blocks = ["172.17.0.0/16", "172.20.0.0/16"]
 }
