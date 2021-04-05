@@ -55,7 +55,7 @@ dependency "certificate" {
 # to copy an RDS snapshot between accounts: https://aws.amazon.com/premiumsupport/knowledge-center/rds-snapshots-share-account/
 inputs = {
   namespace = "dbp"
-  stage     = "earlyaccess"
+  stage     = "earlyaccess_php74"
   name      = "beanstalk"
 
   application_description      = "dbp"
@@ -71,7 +71,7 @@ inputs = {
   loadbalancer_certificate_arn = dependency.certificate.outputs.arn
   instance_type                = "t3.small"
 
-  environment_description = "DBP Early Access environment"
+  environment_description = "DBP Early Access environment with PHP 7.4 solution stack"
   version_label           = ""
   force_destroy           = true
   root_volume_size        = 8
@@ -87,7 +87,7 @@ inputs = {
   application_port = 80
   //solution_stack_name = "64bit Amazon Linux 2018.03 v2.9.12 running PHP 7.2"
   //solution_stack_name = "64bit Amazon Linux 2018.03 v2.9.15 running PHP 7.3"
-  solution_stack_name = "64bit Amazon Linux 2 v3.1.6 running PHP 7.4"
+  solution_stack_name = "64bit Amazon Linux 2 v3.2.0 running PHP 7.4"
   enable_stream_logs  = true
 
   // https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
