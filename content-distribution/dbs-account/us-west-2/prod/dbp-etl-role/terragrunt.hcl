@@ -32,4 +32,7 @@ inputs = {
     "arn:aws:elastictranscoder:us-west-2:869054869504:preset/1556118465775-ps3fba",
     "arn:aws:elastictranscoder:us-west-2:869054869504:preset/1351620000001-100070",
   ]
+  lambda_function_arns = [
+    "arn:aws:lambda:us-west-2:078432969830:function:transcoding-api-create-zip-w9gxhplj7q9mju3h"
+  ]
 }

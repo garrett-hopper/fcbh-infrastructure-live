@@ -22,6 +22,7 @@ inputs = {
     "dbp-etl-artifacts-dev", # dependency.dbp-etl.outputs.ui_artifacts_bucket,
     "dbp-staging",
     "dbp-vid-staging",
+    "dbp-etl-mass-batch",
   ]
   elastictranscoder_arns = [
     "arn:aws:elastictranscoder:us-west-2:869054869504:pipeline/1538064910359-jfv2ws",
@@ -31,5 +32,8 @@ inputs = {
     "arn:aws:elastictranscoder:us-west-2:869054869504:preset/1538165037865-dri6c1",
     "arn:aws:elastictranscoder:us-west-2:869054869504:preset/1556118465775-ps3fba",
     "arn:aws:elastictranscoder:us-west-2:869054869504:preset/1351620000001-100070",
+  ]
+  lambda_function_arns = [
+    "arn:aws:lambda:us-west-2:078432969830:function:transcoding-api-create-zip-w9gxhplj7q9mju3h"
   ]
 }
